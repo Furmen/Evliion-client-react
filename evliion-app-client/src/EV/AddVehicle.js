@@ -67,8 +67,8 @@ class AddVehicle extends Component {
           <br />
           <br />
           <Button.Group size="large">
-            <Button onClick={this.toggleTwoWheeler}>Two Wheeler</Button>
-            <Button onClick={this.toggleTwoWheeler}>Four Wheeler</Button>
+            <Button onClick={this.toggleTwoWheeler} type={this.state.twoWheeler ? "primary" : "secondary"}>Two Wheeler</Button>
+            <Button onClick={this.toggleTwoWheeler} type={this.state.twoWheeler ? "secondary" : "primary"}>Four Wheeler</Button>
           </Button.Group>
           <br />
           <br />
