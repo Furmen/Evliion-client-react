@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PollList from '../../poll/PollList';
+import PollList from '../../EV/PollList';
 import { getUserProfile } from '../../util/APIUtils';
 import { Avatar, Tabs } from 'antd';
 import { getAvatarColor } from '../../util/Colors';
