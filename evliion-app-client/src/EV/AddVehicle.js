@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Typography, Select, Button, message } from "antd";
 import axios from "axios";
 import "./AddVehicle.css";
+import {addVehicle} from '../util/APIUtils'
 const { Title } = Typography;
 
 const uuidv4 = require("uuid/v4");
@@ -14,20 +15,27 @@ class AddVehicle extends Component {
     this.makes = ["Mahindra Electric", "Renault", "Hyundai", "Honda", "Ather"];
     this.models = ["Kona", "E2", "Kwid"];
 
-    this.handleMakeChange = this.handleMakeChange.bind(this);
-    this.handleModelChange = this.handleModelChange.bind(this);
-    this.sendAPIRequest = this.sendAPIRequest.bind(this);
-    this.toggleTwoWheeler = this.toggleTwoWheeler.bind(this);
+    // this.handleMakeChange = this.handleMakeChange.bind(this);
+    // this.handleModelChange = this.handleModelChange.bind(this);
+    // this.sendAPIRequest = this.sendAPIRequest.bind(this);
+    // this.toggleTwoWheeler = this.toggleTwoWheeler.bind(this);
   }
 
   state = {
     buttonDisabled: true,
+    buttonLoading: false,
     make: "",
     model: "",
     twoWheeler: true
   };
 
-//   handleSelectChange = (value = {});
+  handleSelectChange = value => { // TODO refactor?
+    if (this.makes.includes(value)) {
+      this.handleMakeChange(value);
+    } else {
+      this.handleModelChange(value);
+    }
+  }
 
   handleMakeChange = value => {
     this.setState({
@@ -48,15 +56,18 @@ class AddVehicle extends Component {
   };
 
   sendAPIRequest = () => {
-    console.log(this.state.make, this.state.model);
-    axios
-      .post("https://localhost:8080/api/v1/vehicle", {
-        user_id: 1234, // TODO use actual user ID
-        make: this.state.make,
-        model: this.state.model,
-        vehicle_type: this.state.twoWheeler ? "Two Wheeler" : "Four Wheeler"
-      })
-      .then(res => message.info(res.data.message));
+    message.info(`Posting ${this.state.make}, ${this.state.model}, ${this.state.twoWheeler ? "Two Wheeler" : "Four Wheeler"}`) // TODO delete; for testing
+    this.setState({buttonLoading: true});
+
+    const vehicleData = {
+      user_id: 1234, // TODO use real user ID
+      make: this.state.make,
+      model: this.state.model,
+      vehicle_type: this.state.twoWheeler ? "Two Wheeler" : "Four Wheeler"
+    }
+
+    addVehicle(vehicleData)
+      .then(res => message.info(res.message), this.setState({buttonLoading: false}));
   };
 
   render() {
@@ -75,7 +86,7 @@ class AddVehicle extends Component {
           <Select
             defaultValue="Make"
             size="large"
-            onChange={this.handleMakeChange}
+            onChange={this.handleSelectChange}
           >
             {this.makes.map(e => (
               <Select.Option value={e} key={uuidv4()}>
@@ -89,7 +100,7 @@ class AddVehicle extends Component {
           <Select
             defaultValue="Model"
             size="large"
-            onChange={this.handleModelChange}
+            onChange={this.handleSelectChange}
           >
             {this.models.map(e => (
               <Select.Option value={e} key={uuidv4()}>
@@ -102,6 +113,7 @@ class AddVehicle extends Component {
           <Button
             type="primary"
             disabled={this.state.buttonDisabled}
+            loading={this.state.buttonLoading}
             onClick={this.sendAPIRequest}
             size="large"
           >

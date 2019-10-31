@@ -23,6 +23,14 @@ const request = (options) => {
     );
 };
 
+export function addVehicle(vehicleData) {
+    return request({
+        url: API_BASE_URL + "/v1/vehicle",
+        method: 'POST',
+        body: JSON.stringify(vehicleData)
+    })
+}
+
 export function getAllPolls(page, size) {
     page = page || 0;
     size = size || POLL_LIST_SIZE;

@@ -7,7 +7,7 @@
 }
 
 .create-poll-form-button {
-    width: 100%;
+    width: 80%;
 }
 
 .create-poll-form-button[disabled], .create-poll-form-button[disabled]:hover, .create-poll-form-button[disabled]:focus {
