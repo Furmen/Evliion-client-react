@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Typography, Select, Button, message } from "antd";
-import axios from "axios";
+// import axios from "axios";
 import "./AddVehicle.css";
 import {addVehicle} from '../util/APIUtils'
 const { Title } = Typography;
