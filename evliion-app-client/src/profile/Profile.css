@@ -2,10 +2,14 @@
     color: rgb(4, 128, 33);
 }
 
+.user-info {
+    line-height: 30px;
+}
+
 .edit, .logout {
     text-decoration: underline;
 }
 
 .edit-information {
-    
+
 }

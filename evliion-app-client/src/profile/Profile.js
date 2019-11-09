@@ -22,10 +22,10 @@ export default class Profile extends Component {
     return (
       <div>
         {!this.state.isEditing ? (
-          <div>
+          <div class="user-info">
             <h1 className="user-name">{this.state.name}</h1>
-            <p>{this.state.email}</p>
-            <p>{this.state.id}</p>
+            <div>{this.state.email}</div>
+            <div>{this.state.id}</div>
           </div>
         ) : (
           <div class="edit-information">
