@@ -1,0 +1,11 @@
+.user-name {
+    color: rgb(4, 128, 33);
+}
+
+.edit, .logout {
+    text-decoration: underline;
+}
+
+.edit-information {
+    
+}
