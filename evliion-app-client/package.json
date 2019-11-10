@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "antd": "^3.2.2",
+    "arweave": "^1.5.3",
     "google-map-react": "^1.1.5",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-dropzone": "^10.1.10",
     "react-here-map": "^2.1.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
