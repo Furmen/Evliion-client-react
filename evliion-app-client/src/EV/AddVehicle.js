@@ -73,7 +73,7 @@ class AddVehicle extends Component {
   render() {
     return (
       <div className="new-addvehicle-container">
-        <div>
+        {/* <div> */}
           <Title level={2}>Vehicle Make and Model</Title>
           <br />
           <br />
@@ -119,7 +119,7 @@ class AddVehicle extends Component {
           >
             ADD
           </Button>
-        </div>
+        {/* </div> */}
       </div>
     );
   }

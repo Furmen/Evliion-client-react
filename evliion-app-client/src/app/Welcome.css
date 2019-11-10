@@ -1,0 +1,23 @@
+.welcome-page {
+    margin-top: 100px;
+    background-image: url(./placeholder.png);
+    background-color: red;
+    min-width:200px;
+    height:1080px;
+}
+
+.watt-about {
+    background-color: purple;
+    font-size: 200%;
+    color: white;
+    width:1000px;
+}
+
+.watt {
+    font-size: 300%;
+    line-height: 200%;
+}
+
+.description {
+    font-size: 150%;
+}

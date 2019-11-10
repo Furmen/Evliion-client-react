@@ -22,10 +22,20 @@ export default class Profile extends Component {
     return (
       <div>
         {!this.state.isEditing ? (
-          <div class="user-info">
-            <h1 className="user-name">{this.state.name}</h1>
-            <div>{this.state.email}</div>
-            <div>{this.state.id}</div>
+          <div>
+            <div class="user-info">
+              <h1 className="user-name">{this.state.name}</h1>
+              <div>{this.state.email}</div>
+              <div>{this.state.id}</div>
+            </div>
+            <div className="edit-information">
+              <b onClick={this.handleEditClick} className="edit">
+                EDIT
+              </b>
+              <b onClick={this.handleEditClick} className="edit">
+                LOGOUT
+              </b>
+            </div>
           </div>
         ) : (
           <div class="edit-information">
@@ -38,10 +48,6 @@ export default class Profile extends Component {
             <Input defaultValue={this.state.email} style={{ width: 50 }} />
           </div>
         )}
-
-        <b onClick={this.handleEditClick} className="edit">
-          Click Me
-        </b>
       </div>
     );
   }

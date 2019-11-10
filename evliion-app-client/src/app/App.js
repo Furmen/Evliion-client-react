@@ -7,7 +7,7 @@ import { ACCESS_TOKEN } from "../constants";
 
 import AddVehicle from "../EV/AddVehicle";
 import MapView from "../EV/MapView";
-import Profile from '../profile/Profile';
+import Profile from "../profile/Profile";
 import NewPoll from "../EV/NewPoll";
 import Login from "../user/login/Login";
 import Signup from "../user/signup/Signup";
@@ -16,6 +16,7 @@ import AppHeader from "../common/AppHeader";
 import NotFound from "../common/NotFound";
 import LoadingIndicator from "../common/LoadingIndicator";
 import PrivateRoute from "../common/PrivateRoute";
+import Welcome from "./Welcome";
 
 import { Layout, notification } from "antd";
 const { Content } = Layout;
@@ -113,14 +114,18 @@ class App extends Component {
               <Route
                 exact
                 path="/"
-                render={props => (
-                  <AddVehicle
-                    isAuthenticated={this.state.isAuthenticated}
-                    currentUser={this.state.currentUser}
-                    handleLogout={this.handleLogout}
-                    {...props}
-                  />
-                )}
+                render={props =>
+                  this.state.isAuthenticated ? (
+                    <AddVehicle
+                      isAuthenticated={this.state.isAuthenticated}
+                      currentUser={this.state.currentUser}
+                      handleLogout={this.handleLogout}
+                      {...props}
+                    />
+                  ) : (
+                    <Welcome />
+                  )
+                }
               />
               <Route
                 path="/login"
