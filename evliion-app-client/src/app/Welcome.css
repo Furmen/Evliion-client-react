@@ -1,10 +1,10 @@
 .welcome-page {
-    margin-top: 100px;
+    margin-top: 2vh;
     background-image: url(./placeholder.png);
     background-color: red;
     /* min-width:200px; */
-    width:2000px;
-    height:1080px;
+    width:100vw;
+    height:100vh;
 }
 
 .watt-about {
