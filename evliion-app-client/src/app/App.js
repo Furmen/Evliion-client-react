@@ -11,6 +11,7 @@ import Profile from "../profile/Profile";
 import NewPoll from "../EV/NewPoll";
 import Login from "../user/login/Login";
 import Signup from "../user/signup/Signup";
+import VerifyMobile from "../user/verifyMobile/verify_mobile";
 // import Profile from "../user/profile/Profile";
 import AppHeader from "../common/AppHeader";
 import NotFound from "../common/NotFound";
@@ -134,6 +135,7 @@ class App extends Component {
                 )}
               ></Route>
               <Route path="/signup" component={Signup}></Route>
+              <Route path="/verify-mobile" component={VerifyMobile}></Route>
               <Route
                 path="/users/:username"
                 render={props => (
