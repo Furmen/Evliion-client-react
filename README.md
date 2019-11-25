@@ -52,6 +52,10 @@
 
 ![App Screenshot](https://evliion.s3.amazonaws.com/11-Start-charging-page.jpg)
 
+## 11 Start charging page - Enhanced
+
+![App Screenshot](https://evliion.s3.amazonaws.com/11-Start-charging-page-New.jpg)
+
 ## 12 Scan QR code
 
 ![App Screenshot](https://evliion.s3.amazonaws.com/12-Scan-QR-code.jpg)
@@ -75,6 +79,10 @@
 ## 17 Payment options
 
 ![App Screenshot](https://evliion.s3.amazonaws.com/17-Payment-options.jpg)
+
+## 18 Payment page
+
+![App Screenshot](https://evliion.s3.amazonaws.com/18-Payment-page.png)
 
 ## Steps to Setup the Spring Boot Back end app (evliion-app-server)
 
