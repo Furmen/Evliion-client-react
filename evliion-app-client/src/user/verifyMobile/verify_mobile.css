@@ -1,0 +1,38 @@
+#screen_name {
+    font-size: 1.5em;
+    padding-bottom: 3%;
+}
+
+#instruction {
+    color: gray;
+    margin: 0;
+}
+
+#mobile {
+    color: black;
+    font-weight: bold;
+}
+
+#verify_btn {
+    width: 30%;
+    background-color: green;
+    margin-left: auto;
+    margin-top: 5%;
+    margin-right: auto;
+    color: white;
+}
+
+.body{
+    display: flex;
+    text-align: center;
+    margin-top: 10%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.verify_input{
+    padding-top: 4%;
+    padding-bottom: 1%;
+    margin-left: auto;
+    margin-right: auto;    
+}
