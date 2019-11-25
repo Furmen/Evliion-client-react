@@ -10,71 +10,79 @@
 
 ## 1 Register
 
-![Screenshot](screenshot/1-Register.jpg)
+![Screenshot](https://evliion.s3.amazonaws.com/1-Register.jpg)
 
 ## 2 Verify OTP screen 1
 
-![App Screenshot](screenshot/2-Verify-OTP-screen-1.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/2-Verify-OTP-screen-1.jpg)
 
 ## 3 Verify OTP screen 2
 
-![App Screenshot](screenshot/3-Verify-OTP-screen-2.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/3-Verify-OTP-screen-2.jpg)
 
 ## 4 Login
 
-![App Screenshot](screenshot/4-Login.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/4-Login.jpg)
 
 ## 5 Add vehicle four wheeler
 
-![App Screenshot](screenshot/5-Add-vehicle-four-wheeler.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/5-Add-vehicle-four-wheeler.jpg)
 
 ## 6 Add vehicle two wheeler
 
-![App Screenshot](screenshot/6-Add-vehicle-two-wheeler.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/6-Add-vehicle-two-wheeler.jpg)
 
 ## 7 Charging station map view
 
-![App Screenshot](screenshot/7-Charging-station-map-view.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/7-Charging-station-map-view.jpg)
 
 ## 8 Charging station map with pop up 1
 
-![App Screenshot](screenshot/8-Charging-station-map-with-pop-up-1.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/8-Charging-station-map-with-pop-up-1.jpg)
 
 ## 9 Charging station map with pop up 2
 
-![App Screenshot](screenshot/9-Charging-station-map-with-pop-up-2.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/9-Charging-station-map-with-pop-up-2.jpg)
 
 ## 10 Charging station map with pop up 3
 
-![App Screenshot](screenshot/10-Charging-station-map-with-pop-up-3.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/10-Charging-station-map-with-pop-up-3.jpg)
 
 ## 11 Start charging page
 
-![App Screenshot](screenshot/11-Start-charging-page.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/11-Start-charging-page.jpg)
+
+## 11 Start charging page - Enhanced
+
+![App Screenshot](https://evliion.s3.amazonaws.com/11-Start-charging-page-New.jpg)
 
 ## 12 Scan QR code
 
-![App Screenshot](screenshot/12-Scan-QR-code.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/12-Scan-QR-code.jpg)
 
 ## 13 Charging in progress
 
-![App Screenshot](screenshot/13-Charging-in-progress.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/13-Charging-in-progress.jpg)
 
 ## 14 Profile page
 
-![App Screenshot](screenshot/14-Profile-page.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/14-Profile-page.jpg)
 
 ## 15 View vehicle details
 
-![App Screenshot](screenshot/15-View-vehicle-details.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/15-View-vehicle-details.jpg)
 
 ## 16 Transaction history
 
-![App Screenshot](screenshot/16-Transaction-history.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/16-Transaction-history.jpg)
 
 ## 17 Payment options
 
-![App Screenshot](screenshot/17-Payment-options.jpg)
+![App Screenshot](https://evliion.s3.amazonaws.com/17-Payment-options.jpg)
+
+## 18 Payment page
+
+![App Screenshot](https://evliion.s3.amazonaws.com/18-Payment-page.png)
 
 ## Steps to Setup the Spring Boot Back end app (evliion-app-server)
 
