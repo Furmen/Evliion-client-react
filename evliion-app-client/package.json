@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.2.2",
-    "arweave": "^1.5.3",
-    "google-map-react": "^1.1.5",
-    "react": "^16.5.2",
+    "antd": "^3.26.0",
+    "arweave": "^1.6.0",
+    "customize-cra": "^0.9.1",
+    "google-maps-react": "^2.0.2",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "react": "^16.12.0",
     "react-countdown-now": "^2.1.2",
-    "react-dom": "^16.5.2",
-    "react-dropzone": "^10.1.10",
+    "react-dom": "^16.12.0",
+    "react-dropzone": "^10.2.1",
+    "react-google-maps": "^9.4.5",
     "react-here-map": "^2.1.0",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
     "react-verification-code-input": "^1.2.2",
     "uuid": "^3.3.3"
   },
@@ -23,8 +27,20 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-plugin-import": "^1.6.5",
-    "react-app-rewire-less": "^2.1.0",
-    "react-app-rewired": "^1.4.1"
+    "babel-plugin-import": "^1.13.0",
+    "react-app-rewire-less": "^2.1.3",
+    "react-app-rewired": "^2.1.5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
