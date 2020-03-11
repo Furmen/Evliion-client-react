@@ -2,7 +2,7 @@ import React from "react";
 import { Route, withRouter, Switch } from "react-router-dom";
 
 import AddVehicle from "../EV/AddVehicle";
-import MapView from "../EV/MapView/MapView";
+//import MapView from "../EV/MapView/MapView";
 import GoogleMapView from "../EV/GoogleMapView/GoogleMapView";
 import Profile from "../profile/Profile";
 import NewPoll from "../EV/NewPoll";

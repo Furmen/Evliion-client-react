@@ -27,6 +27,12 @@ class Signup extends Component {
             },
             password: {
                 value: ''
+            },
+            countrycode: {
+                value: ''
+            },
+            mobilenumber: {
+                value: ''
             }
         }
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -56,7 +62,9 @@ class Signup extends Component {
             name: this.state.name.value,
             email: this.state.email.value,
             username: this.state.username.value,
-            password: this.state.password.value
+            password: this.state.password.value,
+            countrycode: this.state.countrycode.value,
+            mobilenumber: this.state.mobilenumber.value
         };
         signup(signupRequest)
         .then(response => {
@@ -77,7 +85,9 @@ class Signup extends Component {
         return !(this.state.name.validateStatus === 'success' &&
             this.state.username.validateStatus === 'success' &&
             this.state.email.validateStatus === 'success' &&
-            this.state.password.validateStatus === 'success'
+            this.state.password.validateStatus === 'success' &&
+            this.state.countrycode.validateStatus === 'success' &&
+            this.state.mobilenumber.validateStatus === 'success'
         );
     }
 
@@ -139,6 +149,32 @@ class Signup extends Component {
                                 placeholder="A password between 6 to 20 characters" 
                                 value={this.state.password.value} 
                                 onChange={(event) => this.handleInputChange(event, this.validatePassword)} />    
+                        </FormItem>
+                        <FormItem 
+                            label="Country Code"
+                            validateStatus={this.state.countrycode.validateStatus}
+                            help={this.state.countrycode.errorMsg}>
+                            <Input 
+                                size="large"
+                                name="countrycode" 
+                                type="countrycode"
+                                autoComplete="off"
+                                placeholder="Country Code" 
+                                value={this.state.countrycode.value} 
+                                onChange={(event) => this.handleInputChange(event, this.validateCountryCode)} />    
+                        </FormItem>
+                        <FormItem 
+                            label="Mobile number"
+                            validateStatus={this.state.mobilenumber.validateStatus}
+                            help={this.state.mobilenumber.errorMsg}>
+                            <Input 
+                                size="large"
+                                name="mobilenumber" 
+                                type="mobilenumber"
+                                autoComplete="off"
+                                placeholder="Mobile Number" 
+                                value={this.state.mobilenumber.value} 
+                                onChange={(event) => this.handleInputChange(event, this.validateMobileNumber)} />    
                         </FormItem>
                         <FormItem>
                             <Button type="primary" 
@@ -350,6 +386,33 @@ class Signup extends Component {
         }
     }
 
+    validateCountryCode = (countrycode) => {
+        if(isNaN(countrycode)) {
+            return {
+                validateStatus: 'error',
+                errorMsg: `Country Code must have only numbers.`
+            }
+        } else {
+            return {
+                validateStatus: 'success',
+                errorMsg: null,
+            };            
+        }
+    }
+
+    validateMobileNumber = (mobilenumber) => {
+        if(isNaN(mobilenumber)) {
+            return {
+                validateStatus: 'error',
+                errorMsg: `Mobile Number must have only numbers.`
+            }
+        } else {
+            return {
+                validateStatus: 'success',
+                errorMsg: null,
+            };            
+        }
+    }
 }
 
 export default Signup;
