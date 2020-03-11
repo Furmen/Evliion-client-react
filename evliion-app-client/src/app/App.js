@@ -99,7 +99,7 @@ class App extends Component {
         />
           <div
             className="container"
-            style={{ margin: 0, padding: 0, width: "100vw",height: "100%" }}
+            style={{ marginTop: 0, marginBottom: 0, marginLeft: "auto", marginRight: "auto", padding: 0, width: "100vw",height: "100%" }}
           >
           {/* routes here */}
           <Routes 
