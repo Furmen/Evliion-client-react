@@ -9,6 +9,8 @@
     margin: 0;
     padding: 0;
     height: 100%;
+    left: 0;
+    position: absolute;
 }
 
 .watt-about {
