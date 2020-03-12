@@ -57,7 +57,7 @@ class Signup extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-    
+        
         const signupRequest = {
             name: this.state.name.value,
             email: this.state.email.value,
@@ -66,13 +66,14 @@ class Signup extends Component {
             countrycode: this.state.countrycode.value,
             mobilenumber: this.state.mobilenumber.value
         };
+
         signup(signupRequest)
         .then(response => {
             notification.success({
                 message: 'Evliion App',
                 description: "Thank you! You're successfully registered. Please Login to continue!",
             });          
-            this.props.history.push("/login");
+            this.props.history.push("/verify-mobile", signupRequest);
         }).catch(error => {
             notification.error({
                 message: 'Evliion App',

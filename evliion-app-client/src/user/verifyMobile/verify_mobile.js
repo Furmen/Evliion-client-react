@@ -23,9 +23,10 @@ const Renderer = ({ hours, minutes, seconds, completed }) => {
 
 class verify_mobile extends Component {
   constructor(props) {
+    
     super(props);
     this.state = {
-      mobile: "+95123568956",
+      mobile: this.getMobileNumber(props),
       expiryTime: Date.now() + 18000,
       isDisabled: true,
       isVisible: false,
@@ -37,6 +38,11 @@ class verify_mobile extends Component {
     this.setState({ isDisabled: false });
   };
 
+  getMobileNumber(props) {
+    return (props.location.state.countrycode.indexOf("+") !== -1 ? props.location.state.countrycode + "" + props.location.state.mobilenumber : 
+                                                                  "+" + props.location.state.countrycode + "" + props.location.state.mobilenumber);
+  }
+
   verifyMobile = () => {
     this.setState({ isVisible: true }); //spinner modal is displayed
     //verifying mobile function is executed here
@@ -44,15 +50,13 @@ class verify_mobile extends Component {
 
   render() {
     return (
-      <div class="body">
+      <div className="body">
           {/* Spinner modal */}
         <Modal
           header={null}
           style={{ width: "10px" }}
           visible={this.state.isVisible}
-          closeIcon={() => {
-            return <div></div>;
-          }}
+          closable={false}
           width={100}
           bodyStyle={{
             display: "flex",
