@@ -1,9 +1,11 @@
 .new-addvehicle-container {
     max-width: 520px;
     margin: 0 auto;
-    margin-top: 40px;
-    display: 'flex';
-    justify-content: 'center';
+    margin-top: 15vh;
+}
+
+.ant-typography {
+    text-align: center;
 }
 
 .create-poll-form-button {
@@ -16,7 +18,6 @@
     background-color: #1890ff;
     border-color: #1890ff;
 }
-
 
 .dynamic-delete-button {
     cursor: pointer;
@@ -47,4 +48,23 @@
 
 .poll-form-row input, .poll-form-row textarea {
     margin-bottom: 4px;
+}
+
+[type="button"] {
+    width: 25%;
+}
+
+.ant-btn-group [type="button"] {
+    width: 13.7rem;
+    left: 7%;
+}
+
+.ant-select-selection {
+    width: 27.5rem;
+    left: 7%;
+}
+
+#btnAddVechicle {
+    left: 38%;
+    margin: 10px auto;
 }

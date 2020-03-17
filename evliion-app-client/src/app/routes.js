@@ -1,8 +1,7 @@
 import React from "react";
-import { Route, withRouter, Switch } from "react-router-dom";
-
-import AddVehicle from "../EV/AddVehicle";
-//import MapView from "../EV/MapView/MapView";
+import { Route, Switch } from "react-router-dom";
+import AddVehicle from "../EV/Vehicle/Add/AddVehicle";
+import ListVehicle from "../EV/Vehicle/List/ListVehicle";
 import GoogleMapView from "../EV/GoogleMapView/GoogleMapView";
 import Profile from "../profile/Profile";
 import NewPoll from "../EV/NewPoll";
@@ -38,20 +37,19 @@ const routes = props => {
         path="/"
         render={props =>
           props.isAuthenticated ? (
-            <AddVehicle
-              isAuthenticated={props.isAuthenticated}
-              currentUser={props.currentUser}
-              handleLogout={props.handleLogout}
-              {...props}
-            />
+            <ListVehicle 
+                isAuthenticated={props.isAuthenticated}
+                currentUser={props.currentUser}
+                handleLogout={props.handleLogout}
+                {...props} />
           ) : (
             <Welcome />
           )
         }
       />
-      <Route
-        path="/login"
-        render={props => <Login onLogin={props.handleLogin} {...props} />}
+      <Route path="/addvehicle" component={AddVehicle}></Route>
+      <Route path="/login" render={props => 
+        <Login onLogin={props.handleLogin} {...props} />}
       ></Route>
       <Route path="/signup" component={Signup}></Route>
       <Route path="/verify-mobile" component={VerifyMobile}></Route>

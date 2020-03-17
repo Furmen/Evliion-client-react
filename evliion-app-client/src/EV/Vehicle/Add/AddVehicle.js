@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { Typography, Select, Button, message } from "antd";
-// import axios from "axios";
 import "./AddVehicle.css";
-import {addVehicle} from '../util/APIUtils'
-const { Title } = Typography;
+import {addVehicle} from '../../../util/APIUtils'
 
+const { Title } = Typography;
 const uuidv4 = require("uuid/v4");
-// const axios = require('axios');
+var that;
 
 class AddVehicle extends Component {
   constructor(props) {
     super(props);
-
     this.makes = ["Mahindra Electric", "Renault", "Hyundai", "Honda", "Ather"];
     this.models = ["Kona", "E2", "Kwid"];
+    that = props;
 
     // this.handleMakeChange = this.handleMakeChange.bind(this);
     // this.handleModelChange = this.handleModelChange.bind(this);
@@ -66,15 +65,18 @@ class AddVehicle extends Component {
       vehicle_type: this.state.twoWheeler ? "Two Wheeler" : "Four Wheeler"
     }
 
+    that.history.push('/', { vehicleData: vehicleData })
+
     addVehicle(vehicleData)
-      .then(res => message.info(res.message), this.setState({buttonLoading: false}));
+      .then(res => message.info(res.message), 
+      this.setState({buttonLoading: false}));
   };
 
   render() {
     return (
       <div className="new-addvehicle-container">
         {/* <div> */}
-          <Title level={2}>Vehicle Make and Model</Title>
+          <Title level={3}>Add Vehicle</Title>
           <br />
           <br />
           <Button.Group size="large">
@@ -82,6 +84,9 @@ class AddVehicle extends Component {
             <Button onClick={this.toggleTwoWheeler} type={this.state.twoWheeler ? "secondary" : "primary"}>Four Wheeler</Button>
           </Button.Group>
           <br />
+          <br />
+          <br />
+          <Title level={4}>Vehicle Make and Model</Title>
           <br />
           <Select
             defaultValue="Make"
@@ -100,8 +105,7 @@ class AddVehicle extends Component {
           <Select
             defaultValue="Model"
             size="large"
-            onChange={this.handleSelectChange}
-          >
+            onChange={this.handleSelectChange}>
             {this.models.map(e => (
               <Select.Option value={e} key={uuidv4()}>
                 {e}
@@ -111,12 +115,12 @@ class AddVehicle extends Component {
           <br />
           <br />
           <Button
+            id="btnAddVechicle"
             type="primary"
             disabled={this.state.buttonDisabled}
             loading={this.state.buttonLoading}
             onClick={this.sendAPIRequest}
-            size="large"
-          >
+            size="large">
             ADD
           </Button>
         {/* </div> */}

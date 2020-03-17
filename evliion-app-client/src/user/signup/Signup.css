@@ -1,8 +1,12 @@
 .signup-container {
     max-width: 420px;
     margin: 0 auto;
-    margin-top: 10vh;
+    margin-top: 15vh;
     position: relative;
+}
+
+.page-title {
+    text-align: center;
 }
 
 .signup-form-button {

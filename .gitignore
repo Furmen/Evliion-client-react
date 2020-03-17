@@ -59,3 +59,8 @@ typings/
 
 # next.js build output
 .next
+/.vs
+/evliion-app-client/.vs/evliion-app-client/config
+/evliion-app-client/.vs/evliion-app-client/v16
+/evliion-app-client/.vs
+/package-lock.json
