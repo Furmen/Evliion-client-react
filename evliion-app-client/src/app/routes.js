@@ -36,15 +36,15 @@ const routes = props => {
         exact
         path="/"
         render={props =>
-          props.isAuthenticated ? (
+          //props.isAuthenticated ? (
             <ListVehicle 
                 isAuthenticated={props.isAuthenticated}
                 currentUser={props.currentUser}
                 handleLogout={props.handleLogout}
                 {...props} />
-          ) : (
-            <Welcome />
-          )
+          //) : (
+            //<Welcome />
+          //)
         }
       />
       <Route path="/addvehicle" component={AddVehicle}></Route>
