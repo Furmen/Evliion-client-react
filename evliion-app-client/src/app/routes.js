@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import AddVehicle from "../EV/Vehicle/Add/AddVehicle";
-import ListVehicle from "../EV/Vehicle/List/ListVehicle";
+import Vehicle from "../EV/Vehicle/Vehicle";
+import ListVehicle from "../EV/Vehicle/ListVehicle";
 import GoogleMapView from "../EV/GoogleMapView/GoogleMapView";
 import Profile from "../profile/Profile";
 import NewPoll from "../EV/NewPoll";
@@ -47,7 +47,7 @@ const routes = props => {
           //)
         }
       />
-      <Route path="/addvehicle" component={AddVehicle}></Route>
+      <Route path="/vehicle" component={Vehicle}></Route>
       <Route path="/login" render={props => 
         <Login onLogin={props.handleLogin} {...props} />}
       ></Route>

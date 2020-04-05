@@ -108,3 +108,50 @@ table {
 	background-color: #eee;
   }
   
+  .icon-css {
+	  margin: 5px 10px;
+  }
+
+  .icon-css i.fa-edit:hover {
+	color: darkorange;
+  }
+
+  .icon-css i.fa-trash:hover {
+	color: red;
+  }
+
+ .icon-css i {
+	font-size: 20px;
+}
+
+.btnContainer {
+	position: relative;
+	left: 50%;
+}
+
+.btnContainer button {
+	margin: 0 5px;
+	color: white;
+}
+
+.btnContainer button:hover {
+	border: 1px solid white;
+}
+
+.btnContainer button.btn-primary {
+	background-color: green;
+}
+
+.btnContainer button.btn-primary:hover {
+	font-weight: 700;
+	color: white;
+}
+
+.btnContainer button.btn-secondary {
+	background-color: red;
+}
+
+.btnContainer button.btn-secondary:hover {
+	font-weight: 700;
+	color: white;
+}

@@ -1,24 +1,15 @@
 import React, { Component } from "react";
 import { Typography, Select, Button, message } from "antd";
-import "./AddVehicle.css";
-import {addVehicle} from '../../../util/APIUtils'
+import "./Vehicle.css";
+import {addVehicle} from '../../util/APIUtils'
 
 const { Title } = Typography;
 const uuidv4 = require("uuid/v4");
 var that;
+var vehicleIndex = -1;
 
-class AddVehicle extends Component {
-  constructor(props) {
-    super(props);
-    this.makes = ["Mahindra Electric", "Renault", "Hyundai", "Honda", "Ather"];
-    this.models = ["Kona", "E2", "Kwid"];
-    that = props;
-
-    // this.handleMakeChange = this.handleMakeChange.bind(this);
-    // this.handleModelChange = this.handleModelChange.bind(this);
-    // this.sendAPIRequest = this.sendAPIRequest.bind(this);
-    // this.toggleTwoWheeler = this.toggleTwoWheeler.bind(this);
-  }
+class Vehicle extends Component {
+  _isMounted = false;
 
   state = {
     buttonDisabled: true,
@@ -27,6 +18,14 @@ class AddVehicle extends Component {
     model: "",
     twoWheeler: true
   };
+
+  constructor(props) {
+    super(props);
+    this.makes = ["Mahindra Electric", "Renault", "Hyundai", "Honda", "Ather"];
+    this.models = ["Kona", "E2", "Kwid"];
+    that = props;
+    vehicleIndex = props.location.state.vehicle_index;
+  }
 
   handleSelectChange = value => { // TODO refactor?
     if (this.makes.includes(value)) {
@@ -55,28 +54,60 @@ class AddVehicle extends Component {
   };
 
   sendAPIRequest = () => {
-    message.info(`Posting ${this.state.make}, ${this.state.model}, ${this.state.twoWheeler ? "Two Wheeler" : "Four Wheeler"}`) // TODO delete; for testing
     this.setState({buttonLoading: true});
 
     const vehicleData = {
       user_id: 1234, // TODO use real user ID
       make: this.state.make,
       model: this.state.model,
-      vehicle_type: this.state.twoWheeler ? "Two Wheeler" : "Four Wheeler"
+      vehicle_type: this.state.twoWheeler ? "Two Wheeler" : "Four Wheeler",
+      vehicle_index: vehicleIndex
     }
 
-    that.history.push('/', { vehicleData: vehicleData })
+    that.history.push('/', { vehicleData });
 
     addVehicle(vehicleData)
       .then(res => message.info(res.message), 
       this.setState({buttonLoading: false}));
   };
 
+  backToTheList = () => {
+    that.history.push('/');
+  }
+
+  isEditMode() {
+    return that.location.state && that.location.state.vehicleEdit;
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+
+    if(this.isEditMode()) {
+      setTimeout(() => {
+        if (this._isMounted) {
+        let carEdit = that.location.state.vehicleEdit;
+        this.setState({
+          make: carEdit.make,
+          model: carEdit.model,
+          twoWheeler: carEdit.vehicle_type === "Two Wheeler",
+          buttonDisabled: carEdit.make === "" || carEdit.model === ""
+        });
+
+        this.setState({ state: this.state });
+      }
+     }, 0);
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   render() {
     return (
       <div className="new-addvehicle-container">
         {/* <div> */}
-          <Title level={3}>Add Vehicle</Title>
+          <Title level={3}>{this.isEditMode() ? "Edit Vehicle" : "Add Vehicle"}</Title>
           <br />
           <br />
           <Button.Group size="large">
@@ -89,7 +120,7 @@ class AddVehicle extends Component {
           <Title level={4}>Vehicle Make and Model</Title>
           <br />
           <Select
-            defaultValue="Make"
+            defaultValue={this.isEditMode() ? that.location.state.vehicleEdit.make : "Make"}
             size="large"
             onChange={this.handleSelectChange}
           >
@@ -103,7 +134,7 @@ class AddVehicle extends Component {
           <br />
           <br />
           <Select
-            defaultValue="Model"
+            defaultValue={this.isEditMode() ? that.location.state.vehicleEdit.model : "Model"}
             size="large"
             onChange={this.handleSelectChange}>
             {this.models.map(e => (
@@ -114,19 +145,24 @@ class AddVehicle extends Component {
           </Select>
           <br />
           <br />
-          <Button
-            id="btnAddVechicle"
-            type="primary"
-            disabled={this.state.buttonDisabled}
-            loading={this.state.buttonLoading}
-            onClick={this.sendAPIRequest}
-            size="large">
-            ADD
-          </Button>
+          <div className="ctr-aligment">
+            <a id="backToList" onClick={this.backToTheList}>
+              Back to List
+            </a>
+            <Button
+              id="btnAddVechicle"
+              type="primary"
+              disabled={this.state.buttonDisabled}
+              loading={this.state.buttonLoading}
+              onClick={this.sendAPIRequest}
+              size="large">
+              Save
+            </Button>
+          </div>
         {/* </div> */}
       </div>
     );
   }
 }
 
-export default AddVehicle;
+export default Vehicle;
