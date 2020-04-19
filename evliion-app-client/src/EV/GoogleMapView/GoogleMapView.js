@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {GoogleMap,withScriptjs,withGoogleMap,Marker,InfoWindow} from 'react-google-maps'
+import "./GoogleMapView.css";
 
 const GoogleMapView = props => {
   const [coordinates, setCoordinates] = useState([
@@ -12,34 +13,44 @@ const GoogleMapView = props => {
     { name: "GOG (Pvt) LTd", lat: 52.1, lng: 19.3935785 },
   ]);
   const [selectedPlace,setSelectedPlace] = useState(null)
+  
+  const sayHello = props => {
+    alert("Hello!");
+  }
 
-  return (
-    <GoogleMap
-      defaultZoom={10}
-      defaultCenter={{lat: 48.0, lng: 16.3872163 }}
-    >
-      {coordinates.map( (coordinate,index) => {
-        return         <Marker key={index} position={{lat: coordinate.lat,lng: coordinate.lng}}
-          onClick={ () => {
-            setSelectedPlace(coordinate)
-          }}
-        
-        />
-      }
-)}
-{selectedPlace && (<InfoWindow
-  position={{lat: selectedPlace.lat,lng: selectedPlace.lng}}
-  onCloseClick={() => {
-    setSelectedPlace(null)
-  }}
->
-  <div style={{width: "15vw"}}>
-    <h2>{selectedPlace.name}</h2>
-    <p>Description goes here</p>
-  </div>
-</InfoWindow>)}
-    </GoogleMap>
-  )
+    return (
+        <GoogleMap
+            defaultZoom={10}
+            defaultCenter={{ lat: 48.0, lng: 16.3872163 }}
+        >
+            {coordinates.map((coordinate, index) => {
+                return <Marker key={index} position={{ lat: coordinate.lat, lng: coordinate.lng }}
+                    onClick={() => {
+                        setSelectedPlace(coordinate)
+                    }}
+                />
+            }
+            )}
+            {selectedPlace && (<InfoWindow
+                position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }}
+                onCloseClick={() => {
+                    setSelectedPlace(null)
+                }}
+            >
+                <div style={{ width: "16rem" }}>
+                    <h3>{selectedPlace.name}</h3>
+                    <p className="text-description">S. No. 7 (P), Hosur Road,</p>
+                    <p className="text-description">{selectedPlace.name}, West Ph...</p>
+                    <br />
+                    <br />
+                    <div className="same-line">
+                        <span className="text-info">2 points available</span>
+                        <button className="text-info-btn" onClick={sayHello}>Navigate (756 km)</button>
+                    </div>
+                </div>
+            </InfoWindow>)}
+        </GoogleMap>
+    );
 
   // useEffect(() => {
   //   let isCancelled = false;

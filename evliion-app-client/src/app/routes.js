@@ -11,6 +11,7 @@ import VerifyMobile from "../user/verifyMobile/verify_mobile";
 import NotFound from "../common/NotFound";
 import PrivateRoute from "../common/PrivateRoute";
 import Welcome from "./Welcome/Welcome";
+import { MAP_API_V3_KEY } from '../constants';
 
 const routes = props => {
   return (
@@ -19,7 +20,7 @@ const routes = props => {
         path="/map"
         render={props => (
           <GoogleMapView
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
+            googleMapURL={MAP_API_V3_KEY}
             loadingElement={<div style={{ height: "100vh" }}></div>}
             containerElement={
               <div style={{ height: "100vh", width: "100vw" }}></div>
@@ -36,15 +37,15 @@ const routes = props => {
         exact
         path="/"
         render={props =>
-          //props.isAuthenticated ? (
+          props.isAuthenticated ? (
             <ListVehicle 
                 isAuthenticated={props.isAuthenticated}
                 currentUser={props.currentUser}
                 handleLogout={props.handleLogout}
                 {...props} />
-          //) : (
-            //<Welcome />
-          //)
+          ) : (
+            <Welcome />
+          )
         }
       />
       <Route path="/vehicle" component={Vehicle}></Route>

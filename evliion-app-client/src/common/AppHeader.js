@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Link,
-    withRouter
-} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './AppHeader.css';
 import pollIcon from '../poll.svg';
 import { Layout, Menu, Dropdown, Icon } from 'antd';
@@ -47,7 +44,8 @@ class AppHeader extends Component {
             </Menu.Item>,
             <Menu.Item key="/signup">
               <Link to="/signup">Signup</Link>
-            </Menu.Item>                  
+            </Menu.Item>,
+            <Menu.Item key="/map"><Link to="/map">Map</Link></Menu.Item>
           ];
         }
 

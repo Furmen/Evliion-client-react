@@ -1,0 +1,26 @@
+.text-description {
+    font-size: smaller;
+    margin-bottom: .3rem;
+    font-weight: 400;
+    color: darkgray;
+}
+
+.same-line {
+    display: flex;
+}
+
+.text-info {
+    color: green;
+    font-size: smaller;
+    font-weight: 500;
+}
+
+.text-info-btn {
+    border: 1px solid black;
+    font-size: smaller;
+    padding: 5px;
+    margin-left: 30px;
+    font-weight: 800;
+    position: relative;
+    top: -7px;
+}
