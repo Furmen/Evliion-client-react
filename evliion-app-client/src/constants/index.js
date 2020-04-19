@@ -19,5 +19,4 @@ export const EMAIL_MAX_LENGTH = 40;
 export const PASSWORD_MIN_LENGTH = 6;
 export const PASSWORD_MAX_LENGTH = 20;
 
-//export const MAP_FULL_API_KEY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCizDaRAnRboG6-S6q4yZUl4utFmmv9l9w'
-//export const MAP_API_V3_KEY = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBmzF9172tItcGSRodJPvA6LsL3rgb7-e0'
+export const MAP_API_V3_KEY = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=asdlkjsalkdjlkjsalkdjlsajd'
