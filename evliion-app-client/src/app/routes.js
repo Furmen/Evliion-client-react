@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Vehicle from "../EV/Vehicle/Vehicle";
+import Store from "../store/listStore";
+import AddEditStore from "../store/store";
 import ListVehicle from "../EV/Vehicle/ListVehicle";
 import GoogleMapView from "../EV/GoogleMapView/GoogleMapView";
 import Profile from "../profile/Profile";
@@ -49,6 +51,9 @@ const routes = props => {
         }
       />
       <Route path="/vehicle" component={Vehicle}></Route>
+      <Route path="/store" component={Store}></Route>
+      <Route path="/addstore" component={AddEditStore}></Route>
+      <Route path="/editstore" component={AddEditStore}></Route>
       <Route path="/login" render={props => 
         <Login onLogin={props.handleLogin} {...props} />}
       ></Route>

@@ -31,6 +31,14 @@ export function addVehicle(vehicleData) {
     })
 }
 
+export function addStore(storeData) {
+    return request({
+        url: API_BASE_URL + "/v1/store",
+        method: 'POST',
+        body: JSON.stringify(storeData)
+    })
+}
+
 export function getAllPolls(page, size) {
     page = page || 0;
     size = size || POLL_LIST_SIZE;
@@ -86,7 +94,6 @@ export function checkEmailAvailability(email) {
         method: 'GET'
     });
 }
-
 
 export function getCurrentUser() {
     if(!localStorage.getItem(ACCESS_TOKEN)) {

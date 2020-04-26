@@ -1,0 +1,89 @@
+.new-addvehicle-container {
+    max-width: 520px;
+    margin: 0 auto;
+    margin-top: 15vh;
+    padding: 3rem;
+}
+
+.ant-typography {
+    text-align: center;
+}
+
+.create-poll-form-button {
+    width: 80%;
+}
+
+.ant-select-selection {
+    width: inherit;
+    left: inherit;
+}
+
+.create-poll-form-button[disabled], 
+.create-poll-form-button[disabled]:hover, 
+.create-poll-form-button[disabled]:focus {
+    opacity: 0.6;
+    color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
+
+.dynamic-delete-button {
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+    font-size: 24px;
+    color: #999;
+    transition: all .3s;
+}
+
+.optional-choice {
+    width: calc(100% - 35px);
+    margin-right: 8px;
+}
+
+.dynamic-delete-button:hover {
+    color: #777;
+}
+
+.dynamic-delete-button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.poll-form-row {
+    margin-bottom: 20px;
+}
+
+.poll-form-row input, .poll-form-row textarea {
+    margin-bottom: 4px;
+}
+
+[type="submit"] {
+    width: 25% !important;
+    margin: 0 auto;
+    display: block;
+}
+
+.ant-btn-group [type="button"] {
+    width: 13.7rem;
+    left: 7%;
+}
+
+#btnAddVechicle {
+    left: 3%;
+    margin: 10px auto;
+}
+
+.ctr-aligment {
+    text-align: center;
+    position: relative;
+    left: 0%;
+}
+
+.mleft {
+    margin-left: 20px;
+}
+
+.width-input-tc {
+    width: 15.5rem;
+}

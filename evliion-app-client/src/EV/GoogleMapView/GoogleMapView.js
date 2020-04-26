@@ -37,7 +37,7 @@ const GoogleMapView = props => {
                     setSelectedPlace(null)
                 }}
             >
-                <div style={{ width: "16rem" }}>
+                <div style={{ width: "13.7rem" }}>
                     <h3>{selectedPlace.name}</h3>
                     <p className="text-description">S. No. 7 (P), Hosur Road,</p>
                     <p className="text-description">{selectedPlace.name}, West Ph...</p>
