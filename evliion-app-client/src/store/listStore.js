@@ -42,10 +42,10 @@ class ListStore extends Component {
     var existStore = stores.filter((item, index) => { 
       if(storeDetail.store_type === item.store_type &&
         storeDetail.name === item.name &&
-        storeDetail.address === item.address &&
+        storeDetail.address1 === item.address1 &&
         storeDetail.mobile_number === item.mobile_number &&
-        storeDetail.lattitud === item.lattitud &&
-        storeDetail.longitud === item.longitud)
+        storeDetail.latitude1 === item.latitude1 &&
+        storeDetail.longitude1 === item.longitude1)
         return item;
     });
 
@@ -142,8 +142,8 @@ class ListStore extends Component {
           <th>
             <button
                 type="button"
-                onClick={() => this.requestSort('address')}
-                className={this.getClassNamesFor('address')}>
+                onClick={() => this.requestSort('address1')}
+                className={this.getClassNamesFor('address1')}>
                 Address
               </button>
           </th>
@@ -167,7 +167,7 @@ class ListStore extends Component {
               <td>{index + 1}</td>
               <td>{store.store_type}</td>
               <td>{store.name}</td>
-              <td>{store.address}</td>
+              <td>{store.address1}</td>
               <td>{store.mobile_number}</td>
               <td>
                 <a className="icon-css" title="Edit" onClick={() => this.editStore(index, store)}>

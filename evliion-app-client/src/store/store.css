@@ -87,3 +87,17 @@
 .width-input-tc {
     width: 15.5rem;
 }
+
+.btn-coordenates {
+    display: block;
+    width: auto;
+    margin: 20px auto;
+}
+
+.btnContainer-map {
+    margin-top: 1rem;
+}
+
+.ant-modal-centered {
+    overflow: hidden !important;
+}

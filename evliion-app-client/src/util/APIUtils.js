@@ -1,4 +1,4 @@
-import { API_BASE_URL, POLL_LIST_SIZE, ACCESS_TOKEN } from '../constants';
+import { API_BASE_URL, POLL_LIST_SIZE, ACCESS_TOKEN, MAP_API_GEOCODING, API_COUNTRIES } from '../constants';
 
 const request = (options) => {
     const headers = new Headers({
@@ -91,6 +91,20 @@ export function checkUsernameAvailability(username) {
 export function checkEmailAvailability(email) {
     return request({
         url: API_BASE_URL + "/user/checkEmailAvailability?email=" + email,
+        method: 'GET'
+    });
+}
+
+export function searchCoordenates(address) {
+    return request({
+        url: MAP_API_GEOCODING + address,
+        method: 'GET'
+    });
+}
+
+export function searchCountriesAndStates() {
+    return request({
+        url: API_COUNTRIES,
         method: 'GET'
     });
 }
