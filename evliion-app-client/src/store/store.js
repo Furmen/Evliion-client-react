@@ -4,7 +4,7 @@ import "./store.css";
 import { addStore } from '../util/APIUtils'
 import { MAP_API_V3_KEY } from '../constants';
 import GoogleMapViewStore from "./mapStore";
-import { searchCoordenates, searchCountriesAndStates } from "../util/APIUtils";
+import { searchCoordenates } from "../util/APIUtils";
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 
 const FormItem = Form.Item;
@@ -18,8 +18,6 @@ var coordenates = [];
 
 class AddEditStore extends Component {
   _isMounted = false;
-  countries = [];
-  states = [];
 
   state = {
     buttonDisabled: true,
@@ -42,9 +40,6 @@ class AddEditStore extends Component {
     super(props);
     that = props;
     storeIndex = props.location.state.store_index;
-
-    if(this.countries.length === 0 || this.states.length === 0)
-      this.getCountriesAndStates();
   }
 
   handleInputChange(event, validationFun) {
@@ -73,25 +68,6 @@ class AddEditStore extends Component {
 
   selectRegion (val) {
     this.setState({ state: val });
-  }
-
-  getCountriesAndStates() {
-    searchCountriesAndStates()
-    .then(response => {
-      if(response.result && response.result.length > 0) {
-        response.result.forEach(country => {
-          this.countries.push(country.name);
-
-          if(country.states && country.states.length > 0) {
-            country.states.forEach(state => {
-              this.states.push(state.name);
-            });
-          }
-        });
-      }
-
-      this.setState({ state: this.state });
-    });
   }
 
   searchCoordenatesByAddress(address) {
@@ -244,6 +220,7 @@ class AddEditStore extends Component {
   }
 
   render() {
+    const { country, state } = this.state;
     return (
       <div className="new-addvehicle-container">
         {/* <div> */}
@@ -289,7 +266,7 @@ class AddEditStore extends Component {
                 label="Country">
                 <CountryDropdown
                   className="ant-input ant-input-lg"
-                  value={this.state.country}
+                  value={country}
                   onBlur={(event) => this.getCoordinate(event, 'country')}
                   onChange={(val) => this.selectCountry(val)} />
               </FormItem>
@@ -298,8 +275,8 @@ class AddEditStore extends Component {
                 <RegionDropdown
                   className="ant-input ant-input-lg"
                   onBlur={(event) => this.getCoordinate(event, 'state')}
-                  country={this.state.country}
-                  value={this.state.state}
+                  country={country}
+                  value={state}
                   onChange={(val) => this.selectRegion(val)} />
               </FormItem>
               <FormItem

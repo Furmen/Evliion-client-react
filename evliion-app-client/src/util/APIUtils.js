@@ -1,4 +1,4 @@
-import { API_BASE_URL, POLL_LIST_SIZE, ACCESS_TOKEN, MAP_API_GEOCODING, API_COUNTRIES } from '../constants';
+import { API_BASE_URL, POLL_LIST_SIZE, ACCESS_TOKEN, MAP_API_GEOCODING } from '../constants';
 
 const request = (options) => {
     const headers = new Headers({
@@ -113,13 +113,6 @@ export function searchCoordenates(address) {
         response = JSON.parse(result);
       });
       return response;
-}
-
-export function searchCountriesAndStates() {
-    return request({
-        url: API_COUNTRIES,
-        method: 'GET'
-    });
 }
 
 export function getCurrentUser() {
