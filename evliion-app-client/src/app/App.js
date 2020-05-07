@@ -16,8 +16,9 @@ class App extends Component {
     this.state = {
       currentUser: null,
       isAuthenticated: false,
-      isLoading: false,
+      isLoading: false
     };
+
     this.handleLogout = this.handleLogout.bind(this);
     this.loadCurrentUser = this.loadCurrentUser.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -81,10 +82,28 @@ class App extends Component {
     this.props.history.push("/");
   }
 
+  checkItemMenuState() {
+    var menuItems = document.getElementsByClassName("ant-menu-item");
+    for (let index = 0; index < menuItems.length; index++) {
+      const menuItem = menuItems[index];
+      
+      if(this.props.location.pathname.indexOf(menuItem.children[0].innerText.toLowerCase()) !== -1) {
+        menuItem.children[0].style.color = "#1DA57A";
+        menuItem.style.borderBottom = "2px solid #1DA57A";
+      } else {
+        menuItem.children[0].style.color = "black";
+        menuItem.style.borderBottom = "0px";
+      }
+    }
+  }
+
   render() {
+    this.checkItemMenuState();
+
     if (this.state.isLoading) {
       return <LoadingIndicator />;
     }
+
     return (
       <Layout className="app-container" style={{ width: "100vw" }}>
         <AppHeader
@@ -92,10 +111,14 @@ class App extends Component {
           currentUser={this.state.currentUser}
           onLogout={this.handleLogout}
         />
-          <div
-            className="container"
-            style={{ marginTop: 0, marginBottom: 0, marginLeft: "auto", marginRight: "auto", padding: 0, width: "100vw",height: "100%" }}
-          >
+          <div className="container"
+            style={{ marginTop: 0, 
+                     marginBottom: 0, 
+                     marginLeft: "auto", 
+                     marginRight: "auto", 
+                     padding: 0, 
+                     width: "100vw",
+                     height: "100%" }}>
           {/* routes here */}
           <Routes 
                   currentUser={this.state.currentUser}
