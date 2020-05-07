@@ -101,3 +101,8 @@
 .ant-modal-centered {
     overflow: hidden !important;
 }
+
+.cto--ta {
+    resize: none !important;
+    height: 10vh;
+}

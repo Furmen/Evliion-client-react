@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Modal, Form, Input, Typography, Select, Button, message, notification } from "antd";
+import { Modal, Form, Input, Typography, Button, message, notification } from "antd";
 import "./store.css";
 import { addStore } from '../util/APIUtils'
 import { MAP_API_V3_KEY } from '../constants';
 import GoogleMapViewStore from "./mapStore";
 import { searchCoordenates, searchCountriesAndStates } from "../util/APIUtils";
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 
 const FormItem = Form.Item;
 const { Title } = Typography;
@@ -27,20 +28,18 @@ class AddEditStore extends Component {
     city: "",
     state: "",
     country: "",
-    address1: "",
-    address2: "",
-    mobile_number: "",
-    store_type: "",
-    latitude1: 0,
-    longitude1: 0,
-    latitude2: 0,
-    longitude2: 0,
+    address: "",
+    additional: "",
+    zipcode: "",
+    category: "",
+    subCategory: "",
+    latitude: 0,
+    longitude: 0,
     isVisible: false
   };
 
   constructor(props) {
     super(props);
-    this.stores_types = ["Charging", "Swapping"];
     that = props;
     storeIndex = props.location.state.store_index;
 
@@ -61,16 +60,19 @@ class AddEditStore extends Component {
     });
   }
 
-  handleSelectChange = value => {
-    this.setState({ store_type: value });
+  handleInputWithoutValidationChange(event) {
+    const target = event.target;
+    const inputName = target.name;        
+    const inputValue = target.value;
+    this.setState({ [inputName] : inputValue });
   }
 
-  handleSelectStateChange = value => {
-    this.setState({ state: value });
+  selectCountry (val) {
+    this.setState({ country: val });
   }
 
-  handleSelectCountryChange = value => {
-    this.setState({ country: value });
+  selectRegion (val) {
+    this.setState({ state: val });
   }
 
   getCountriesAndStates() {
@@ -93,17 +95,15 @@ class AddEditStore extends Component {
   }
 
   searchCoordenatesByAddress(address) {
-    searchCoordenates(address)
-    .then(response => {
-      if(response.results && response.results.length > 0) {
-        let $data = response.results[0];
-
-        coordenates.push({
-          latitude: $data.geometry.location.lat,
-          longitude: $data.geometry.location.lng
-        });
-      }
-    });
+    var response = searchCoordenates(address)
+    if(response && response.results && response.results.length > 0) {
+      let $data = response.results[0];
+      coordenates = [];
+      coordenates.push({
+        latitude: $data.geometry.location.lat,
+        longitude: $data.geometry.location.lng
+      });
+    }
   }
   
   sendAPIRequest = () => {
@@ -113,14 +113,13 @@ class AddEditStore extends Component {
       user_id: 1234, // TODO use real user ID
       name: this.state.name.value,
       city: this.state.city.value,
-      address1: this.state.address1.value,
-      address2: this.state.address2.value,
-      mobile_number: this.state.mobile_number.value,
-      latitude1: this.state.latitude1,
-      longitude1: this.state.longitude1,
-      latitude2: this.state.latitude2,
-      longitude2: this.state.longitude2,
-      store_type: this.state.store_type,
+      address: this.state.address.value,
+      additional: this.state.additional.value,
+      zipcode: this.state.zipcode.value,
+      latitude: this.state.latitude,
+      longitude: this.state.longitude,
+      category: this.state.category.value,
+      subCategory: this.state.subCategory,
       state: this.state.state,
       country: this.state.country,
       store_index: storeIndex
@@ -133,8 +132,12 @@ class AddEditStore extends Component {
       this.setState({buttonLoading: false}));
   };
 
-  getCoordinate(event) {
-    this.searchCoordenatesByAddress(event.currentTarget.value);
+  getCoordinate(event, source) {
+    var finalAddress = this.state.address.value + ' ';
+    finalAddress += this.state.city.value + ' '
+    finalAddress += this.state.state.value + ' ';
+    finalAddress += this.state.country.value;
+    this.searchCoordenatesByAddress(finalAddress);
   }
 
   captureCoordenates() {
@@ -154,10 +157,11 @@ class AddEditStore extends Component {
         this.state.city.validateStatus === 'success' &&
         this.state.country !== "" &&
         this.state.state !== "" &&
-        this.state.address1.validateStatus === 'success' &&
-        this.state.mobile_number.validateStatus === 'success' &&
-        this.state.latitude1 !== 0 &&
-        this.state.longitude1 !== 0);
+        this.state.address.validateStatus === 'success' &&
+        this.state.zipcode.validateStatus === 'success' &&
+        this.state.category.validateStatus === 'success' &&
+        this.state.latitude !== 0 &&
+        this.state.longitude !== 0);
   }
 
   componentDidMount() {
@@ -179,28 +183,31 @@ class AddEditStore extends Component {
               validateStatus: "success",
               value: carStore.city
             },
-            address1: {
+            address: {
               errorMsg: null,
               validateStatus: "success",
-              value: carStore.address1
+              value: carStore.address
             },
-            address2: {
+            additional: {
               errorMsg: null,
               validateStatus: "success",
-              value: carStore.address2 ? carStore.address2 : ""
+              value: carStore.additional
             },
             state: carStore.state,
             country: carStore.country,
-            store_type: carStore.store_type,
-            mobile_number: {
+            category: {
               errorMsg: null,
               validateStatus: "success",
-              value: carStore.mobile_number
+              value: carStore.category
             },
-            latitude1: carStore.latitude1,
-            longitude1: carStore.longitude1,
-            latitude2: carStore.latitude2 ? carStore.latitude2 : "",
-            longitude2: carStore.longitude2 ? carStore.longitude2 : "",
+            subCategory: carStore.subCategory,
+            zipcode: {
+              errorMsg: null,
+              validateStatus: "success",
+              value: carStore.zipcode
+            },
+            latitude: carStore.latitude,
+            longitude: carStore.longitude,
             buttonDisabled: false
           });
 
@@ -232,13 +239,8 @@ class AddEditStore extends Component {
 
   saveCoordinates() {
     this.setState({ isVisible: false });
-    this.state.latitude1 = coordenates[0].latitude;
-    this.state.longitude1 = coordenates[0].longitude;
-
-    if(coordenates[1]) {
-      this.state.latitude2 = coordenates[1].latitude;
-      this.state.longitude2 = coordenates[1].longitude;
-    }
+    this.state.latitude = coordenates[0].latitude;
+    this.state.longitude = coordenates[0].longitude;
   }
 
   render() {
@@ -249,7 +251,7 @@ class AddEditStore extends Component {
           <br />
           <Form onSubmit={this.handleSubmit} className="signup-form">
               <FormItem 
-                label="Name"
+                label="Store Name"
                 hasFeedback
                 validateStatus={this.state.name.validateStatus}
                 help={this.state.name.errorMsg}>
@@ -261,33 +263,46 @@ class AddEditStore extends Component {
                   value={this.state.name.value} 
                   onChange={(event) => this.handleInputChange(event, this.validateName)} />    
               </FormItem>
-              <FormItem label="Address Line 1"
+              <FormItem label="Address"
                 hasFeedback
-                validateStatus={this.state.address1.validateStatus}
-                help={this.state.address1.errorMsg}>
+                validateStatus={this.state.address.validateStatus}
+                help={this.state.address.errorMsg}>
                 <Input 
                   size="large"
-                  name="address1" 
-                  onBlur={(event) => this.getCoordinate(event)}
+                  name="address" 
+                  onBlur={(event) => this.getCoordinate(event, 'address')}
                   autoComplete="off"
-                  placeholder="Address Line 1"
-                  value={this.state.address1.value}
+                  placeholder="Address Line"
+                  value={this.state.address.value}
                   onChange={(event) => this.handleInputChange(event, this.validateAddress)} />
               </FormItem>
-              <FormItem label="Address Line 2"
-                hasFeedback
-                validateStatus={this.state.address2.validateStatus}
-                help={this.state.address2.errorMsg}>
-                <Input 
+              <FormItem label="Additional Details">
+                <textarea 
                   size="large"
-                  name="address2" 
-                  onBlur={(event) => this.getCoordinate(event)}
+                  className="ant-input ant-input-lg cto--ta"
+                  name="additional" 
                   autoComplete="off"
-                  placeholder="Address Line 2"
-                  value={this.state.address2.value}
-                  onChange={(event) => this.handleInputChange(event, this.validateAddress2)} />
+                  placeholder="Additional Details"
+                  value={this.state.additional.value} />
               </FormItem>
               <FormItem 
+                label="Country">
+                <CountryDropdown
+                  className="ant-input ant-input-lg"
+                  value={this.state.country}
+                  onBlur={(event) => this.getCoordinate(event, 'country')}
+                  onChange={(val) => this.selectCountry(val)} />
+              </FormItem>
+              <FormItem 
+                label="State">
+                <RegionDropdown
+                  className="ant-input ant-input-lg"
+                  onBlur={(event) => this.getCoordinate(event, 'state')}
+                  country={this.state.country}
+                  value={this.state.state}
+                  onChange={(val) => this.selectRegion(val)} />
+              </FormItem>
+              <FormItem
                 label="City"
                 hasFeedback
                 validateStatus={this.state.city.validateStatus}
@@ -295,72 +310,25 @@ class AddEditStore extends Component {
                 <Input 
                   size="large"
                   name="city"
+                  onBlur={(event) => this.getCoordinate(event, 'city')}
                   autoComplete="off"
                   placeholder="City"
                   value={this.state.city.value} 
                   onChange={(event) => this.handleInputChange(event, this.validateCity)} />    
               </FormItem>
               <FormItem 
-                label="State"
+                label="Zipcode"
                 hasFeedback
-                validateStatus="success"
-                help={null}>
-                <Select
-                      defaultValue={that.location.state.storeEdit ? that.location.state.storeEdit.state : "State"}
-                      size="large"
-                      onChange={this.handleSelectStateChange}>
-                      {this.states.map(e => (
-                      <Select.Option value={e} key={uuidv4()}>
-                        {e}
-                      </Select.Option>
-                  ))}
-                </Select>
-              </FormItem>
-              <FormItem 
-                label="Country"
-                hasFeedback
-                validateStatus="success"
-                help={null}>
-                <Select
-                      defaultValue={that.location.state.storeEdit ? that.location.state.storeEdit.country : "Country"}
-                      size="large"
-                      onChange={this.handleSelectCountryChange}>
-                      {this.countries.map(e => (
-                    <Select.Option value={e} key={uuidv4()}>
-                      {e}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </FormItem>
-              <FormItem 
-                label="Mobile number"
-                hasFeedback
-                validateStatus={this.state.mobile_number.validateStatus}
-                help={this.state.mobile_number.errorMsg}>
+                validateStatus={this.state.zipcode.validateStatus}
+                help={this.state.zipcode.errorMsg}>
                 <Input 
                   size="large"
-                  name="mobile_number" 
-                  type="mobile_number"
+                  name="zipcode" 
+                  type="zipcode"
                   autoComplete="off"
-                  placeholder="Mobile Number" 
-                  value={this.state.mobile_number.value} 
-                  onChange={(event) => this.handleInputChange(event, this.validateMobileNumber)} />    
-              </FormItem>
-              <FormItem 
-                label="Store Type"
-                hasFeedback
-                validateStatus="success"
-                help={null}>
-                <Select
-                      defaultValue={that.location.state.storeEdit ? that.location.state.storeEdit.store_type : "Store Type"}
-                      size="large"
-                      onChange={this.handleSelectChange}>
-                      {this.stores_types.map(e => (
-                    <Select.Option value={e} key={uuidv4()}>
-                      {e}
-                    </Select.Option>
-                  ))}
-                </Select>
+                  placeholder="Zipcode" 
+                  value={this.state.zipcode.value} 
+                  onChange={(event) => this.handleInputChange(event, this.validateZipCode)} />    
               </FormItem>
               <Title level={4}>Coordenates</Title>
               <Button type="primary" 
@@ -370,48 +338,49 @@ class AddEditStore extends Component {
                 onClick={() => this.captureCoordenates()}>
                 Load coordinates
               </Button>
-              <div>
-              <FormItem label="Latitude Address Line 1">
+              <FormItem label="Latitude">
                 <Input 
                   size="large"
                   disabled={true}
-                  name="latitude1" 
+                  name="latitude" 
                   type="text" 
                   autoComplete="off"
                   placeholder="Latitude"
-                  value={this.state.latitude1} />    
+                  value={this.state.latitude} />    
               </FormItem>
-              <FormItem label="Longitude Address Line 1">
+              <FormItem label="Longitude">
                 <Input 
                   size="large"
                   disabled={true}
-                  name="longitude1" 
+                  name="longitude" 
                   type="text"
                   autoComplete="off"
                   placeholder="Longitude " 
-                  value={this.state.longitude1} />    
+                  value={this.state.longitude} />
               </FormItem>
-              <FormItem label="Latitude Address Line 2">
+              <FormItem 
+                label="Category"
+                hasFeedback
+                validateStatus={this.state.category.validateStatus}
+                help={this.state.category.errorMsg}>
                 <Input 
                   size="large"
-                  disabled={true}
-                  name="latitude2" 
-                  type="text" 
+                  name="category"
                   autoComplete="off"
-                  placeholder="Latitude"
-                  value={this.state.latitude2} />
+                  placeholder="Category"
+                  value={this.state.category.value} 
+                  onChange={(event) => this.handleInputChange(event, this.validateCategory)} />
               </FormItem>
-              <FormItem label="Longitude Address Line 2">
+              <FormItem 
+                label="Sub Category">
                 <Input 
                   size="large"
-                  disabled={true}
-                  name="longitude2" 
-                  type="text"
+                  name="subCategory"
                   autoComplete="off"
-                  placeholder="Longitude " 
-                  value={this.state.longitude2} />
+                  placeholder="Sub Category"
+                  value={this.state.subCategory}
+                  onChange={(event) => this.handleInputWithoutValidationChange(event)} />
               </FormItem>
-              </div>
               <FormItem>
                 <Button type="primary" 
                   htmlType="submit" 
@@ -472,6 +441,20 @@ class AddEditStore extends Component {
     }
   }
 
+  validateCategory = (value) => {
+    if(!value || value.length === 0) {
+        return {
+            validateStatus: 'error',
+            errorMsg: "Category is required"
+        }
+    } else {
+        return {
+            validateStatus: 'success',
+            errorMsg: null,
+        };            
+    }
+  }
+
   validateCity = (value) => {
     if(!value || value.length === 0) {
         return {
@@ -485,7 +468,6 @@ class AddEditStore extends Component {
         };            
     }
   }
-
 
   validateAddress = (value) => {
     if(!value || value.length === 0) {
@@ -501,18 +483,11 @@ class AddEditStore extends Component {
     }
   }
 
-  validateAddress2 = (value) => {
-    return {
-      validateStatus: 'success',
-      errorMsg: null,
-    };
-  }
-
-  validateMobileNumber = (mobile_number) => {
-    if(isNaN(mobile_number)) {
+  validateZipCode = (zipcode) => {
+    if(isNaN(zipcode)) {
         return {
             validateStatus: 'error',
-            errorMsg: `Mobile Number must have only numbers.`
+            errorMsg: `Zipcode must have only numbers.`
         }
     } else {
         return {

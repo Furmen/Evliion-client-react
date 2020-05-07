@@ -2,17 +2,12 @@ import React, { Component } from "react";
 import "./App.css";
 import { Route, withRouter, Switch } from "react-router-dom";
 import Routes from './routes'
-
 import { getCurrentUser } from "../util/APIUtils";
 import { ACCESS_TOKEN } from "../constants";
-
-// import Profile from "../user/profile/Profile";
 import AppHeader from "../common/AppHeader";
-
 import LoadingIndicator from "../common/LoadingIndicator";
-
-
 import { Layout, notification } from "antd";
+
 const { Content } = Layout;
 
 class App extends Component {

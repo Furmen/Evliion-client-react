@@ -2,14 +2,15 @@ import { API_BASE_URL, POLL_LIST_SIZE, ACCESS_TOKEN, MAP_API_GEOCODING, API_COUN
 
 const request = (options) => {
     const headers = new Headers({
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
     })
     
     if(localStorage.getItem(ACCESS_TOKEN)) {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
     }
 
-    const defaults = {headers: headers};
+    const defaults = { headers: headers };
+
     options = Object.assign({}, defaults, options);
 
     return fetch(options.url, options)
@@ -21,6 +22,14 @@ const request = (options) => {
             return json;
         })
     );
+};
+
+const doCORSRequest = (options, printResult) => {
+    var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+    var x = new XMLHttpRequest();
+    x.open(options.method, cors_api_url + options.url, false);
+    x.onload = x.onerror = function() { printResult(x.response); };
+    x.send(options.data);
 };
 
 export function addVehicle(vehicleData) {
@@ -96,10 +105,14 @@ export function checkEmailAvailability(email) {
 }
 
 export function searchCoordenates(address) {
-    return request({
-        url: MAP_API_GEOCODING + address,
-        method: 'GET'
-    });
+    var response;
+    doCORSRequest({
+        method: 'GET',
+        url: MAP_API_GEOCODING + address
+      }, function printResult(result) {
+        response = JSON.parse(result);
+      });
+      return response;
 }
 
 export function searchCountriesAndStates() {

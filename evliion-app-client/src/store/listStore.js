@@ -40,12 +40,13 @@ class ListStore extends Component {
 
   checkStoreAvailability(storeDetail) {
     var existStore = stores.filter((item, index) => { 
-      if(storeDetail.store_type === item.store_type &&
-        storeDetail.name === item.name &&
-        storeDetail.address1 === item.address1 &&
-        storeDetail.mobile_number === item.mobile_number &&
-        storeDetail.latitude1 === item.latitude1 &&
-        storeDetail.longitude1 === item.longitude1)
+      if(storeDetail.name === item.name &&
+        storeDetail.address === item.address &&
+        storeDetail.zipcode === item.zipcode &&
+        storeDetail.latitude === item.latitude &&
+        storeDetail.longitude === item.longitude &&
+        storeDetail.subCategory === item.subCategory &&
+        storeDetail.category === item.category)
         return item;
     });
 
@@ -126,9 +127,9 @@ class ListStore extends Component {
           <th>
             <button
                 type="button"
-                onClick={() => this.requestSort('store_type')}
-                className={this.getClassNamesFor('store_type')}>
-                Type
+                onClick={() => this.requestSort('category')}
+                className={this.getClassNamesFor('category')}>
+                Category
               </button>
           </th>
           <th>
@@ -142,17 +143,17 @@ class ListStore extends Component {
           <th>
             <button
                 type="button"
-                onClick={() => this.requestSort('address1')}
-                className={this.getClassNamesFor('address1')}>
+                onClick={() => this.requestSort('address')}
+                className={this.getClassNamesFor('address')}>
                 Address
               </button>
           </th>
           <th>
             <button
                 type="button"
-                onClick={() => this.requestSort('mobile_number')}
-                className={this.getClassNamesFor('mobile_number')}>
-                Mobile number
+                onClick={() => this.requestSort('zipcode')}
+                className={this.getClassNamesFor('zipcode')}>
+                Zipcode
               </button>
           </th>
           <th>
@@ -165,10 +166,10 @@ class ListStore extends Component {
           stores.map((store, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{store.store_type}</td>
+              <td>{store.category}</td>
               <td>{store.name}</td>
-              <td>{store.address1}</td>
-              <td>{store.mobile_number}</td>
+              <td>{store.address}</td>
+              <td>{store.zipcode}</td>
               <td>
                 <a className="icon-css" title="Edit" onClick={() => this.editStore(index, store)}>
                   <i className="fa fa-edit"></i>
