@@ -40,6 +40,13 @@ class AddEditStore extends Component {
     super(props);
     that = props;
     storeIndex = props.location.state.store_index;
+    let ctxComponent = this;
+    setTimeout(function () {
+      if(ctxComponent.isEditMode()) {
+        let carStore = that.location.state.storeEdit;
+        ctxComponent.selectRegion (carStore.state);
+      }
+    }, 500);
   }
 
   handleInputChange(event, validationFun) {
@@ -63,6 +70,7 @@ class AddEditStore extends Component {
   }
 
   selectCountry (val) {
+    alert(1);
     this.setState({ country: val });
   }
 
@@ -84,13 +92,13 @@ class AddEditStore extends Component {
   
   sendAPIRequest = () => {
     this.setState({buttonLoading: true});
-
+    
     const storeData = {
       user_id: 1234, // TODO use real user ID
       name: this.state.name.value,
       city: this.state.city.value,
       address: this.state.address.value,
-      additional: this.state.additional.value,
+      additional: this.state.additional,
       zipcode: this.state.zipcode.value,
       latitude: this.state.latitude,
       longitude: this.state.longitude,
@@ -131,11 +139,11 @@ class AddEditStore extends Component {
   isFormInvalid() {
     return !(this.state.name.validateStatus === 'success' &&
         this.state.city.validateStatus === 'success' &&
-        this.state.country !== "" &&
-        this.state.state !== "" &&
         this.state.address.validateStatus === 'success' &&
         this.state.zipcode.validateStatus === 'success' &&
         this.state.category.validateStatus === 'success' &&
+        this.state.country !== "" &&
+        this.state.state !== "" &&
         this.state.latitude !== 0 &&
         this.state.longitude !== 0);
   }
@@ -164,11 +172,7 @@ class AddEditStore extends Component {
               validateStatus: "success",
               value: carStore.address
             },
-            additional: {
-              errorMsg: null,
-              validateStatus: "success",
-              value: carStore.additional
-            },
+            additional: carStore.additional,
             state: carStore.state,
             country: carStore.country,
             category: {
@@ -260,7 +264,8 @@ class AddEditStore extends Component {
                   name="additional" 
                   autoComplete="off"
                   placeholder="Additional Details"
-                  value={this.state.additional.value} />
+                  value={this.state.additional}
+                  onChange={(event) => this.handleInputWithoutValidationChange(event)} />
               </FormItem>
               <FormItem 
                 label="Country">
