@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Form, Input, Typography, Button, message, notification } from "antd";
+import { Modal, Form, Input, Typography, Button, Select, message, notification } from "antd";
 import "./store.css";
 import { addStore } from '../util/APIUtils'
 import { MAP_API_V3_KEY } from '../constants';
@@ -15,6 +15,7 @@ var storeIndex = -1;
 var latitude;
 var longitude;
 var coordenates = [];
+var categories = ['Grocery', 'Bakery', 'Medical', 'Fruits', 'Vegetables'];
 
 class AddEditStore extends Component {
   _isMounted = false;
@@ -69,8 +70,11 @@ class AddEditStore extends Component {
     this.setState({ [inputName] : inputValue });
   }
 
+  selectCategory = value => {
+    this.setState({category: value});
+  }
+
   selectCountry (val) {
-    alert(1);
     this.setState({ country: val });
   }
 
@@ -102,7 +106,7 @@ class AddEditStore extends Component {
       zipcode: this.state.zipcode.value,
       latitude: this.state.latitude,
       longitude: this.state.longitude,
-      category: this.state.category.value,
+      category: this.state.category,
       subCategory: this.state.subCategory,
       state: this.state.state,
       country: this.state.country,
@@ -141,7 +145,7 @@ class AddEditStore extends Component {
         this.state.city.validateStatus === 'success' &&
         this.state.address.validateStatus === 'success' &&
         this.state.zipcode.validateStatus === 'success' &&
-        this.state.category.validateStatus === 'success' &&
+        this.state.category !== "" &&
         this.state.country !== "" &&
         this.state.state !== "" &&
         this.state.latitude !== 0 &&
@@ -175,11 +179,7 @@ class AddEditStore extends Component {
             additional: carStore.additional,
             state: carStore.state,
             country: carStore.country,
-            category: {
-              errorMsg: null,
-              validateStatus: "success",
-              value: carStore.category
-            },
+            category: carStore.category,
             subCategory: carStore.subCategory,
             zipcode: {
               errorMsg: null,
@@ -341,17 +341,17 @@ class AddEditStore extends Component {
                   value={this.state.longitude} />
               </FormItem>
               <FormItem 
-                label="Category"
-                hasFeedback
-                validateStatus={this.state.category.validateStatus}
-                help={this.state.category.errorMsg}>
-                <Input 
-                  size="large"
-                  name="category"
-                  autoComplete="off"
-                  placeholder="Category"
-                  value={this.state.category.value} 
-                  onChange={(event) => this.handleInputChange(event, this.validateCategory)} />
+                label="Category">
+                  <Select
+                    defaultValue={this.isEditMode() ? that.location.state.storeEdit.category : "Category"}
+                    size="large"
+                    onChange={this.selectCategory}>
+                      {categories.map(e => (
+                        <Select.Option value={e} key={uuidv4()}>
+                          {e}
+                        </Select.Option>
+                      ))}
+                  </Select>
               </FormItem>
               <FormItem 
                 label="Sub Category">
@@ -414,20 +414,6 @@ class AddEditStore extends Component {
         return {
             validateStatus: 'error',
             errorMsg: "Name is required"
-        }
-    } else {
-        return {
-            validateStatus: 'success',
-            errorMsg: null,
-        };            
-    }
-  }
-
-  validateCategory = (value) => {
-    if(!value || value.length === 0) {
-        return {
-            validateStatus: 'error',
-            errorMsg: "Category is required"
         }
     } else {
         return {
