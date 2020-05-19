@@ -113,12 +113,31 @@ class AddEditStore extends Component {
       store_index: storeIndex
     }
 
-    that.history.push('/store', { storeData });
-
-    addStore(storeData)
-      .then(res => message.info(res.message), 
-      this.setState({buttonLoading: false}));
+    addStore(this.toAPIJsonFormat(storeData))
+      .then(res => 
+        message.info(res.message), 
+        this.setState({buttonLoading: false}),
+        that.history.push('/store', { storeData })
+      );
   };
+
+  toAPIJsonFormat(storeData) {
+    return {
+      name: storeData.name, 
+      address:{
+        line: storeData.address,
+        line2: storeData.additional, 
+        zipCode: storeData.zipcode, 
+        city: storeData.city,
+        state: storeData.state,
+        country: storeData.country,
+        lattitude: storeData.latitude,
+        longitude: storeData.longitude
+      },
+      category: storeData.category,
+      subCategory: storeData.subCategory
+    };
+  }
 
   getCoordinate(event, source) {
     var finalAddress = this.state.address.value + ' ';
