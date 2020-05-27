@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Typography, Select, Button, message } from "antd";
 import "./Vehicle.css";
-import {addVehicle} from '../../util/APIUtils'
+import {addVehicle} from '../util/APIUtils'
 
 const { Title } = Typography;
 const uuidv4 = require("uuid/v4");

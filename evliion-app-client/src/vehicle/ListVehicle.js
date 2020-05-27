@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Modal, Typography, Button } from "antd";
+import React, { Component } from "../../node_modules/react";
+import { Modal, Typography, Button } from "../../node_modules/antd";
 import "./ListVehicle.css";
 
 const { Title } = Typography;

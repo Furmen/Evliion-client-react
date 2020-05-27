@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import { Typography, Input } from "antd";
+import { Input } from "antd";
+import {CLAIM_USER} from '../constants';
 import "./Profile.css";
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
   }
+
   state = {
-    // TODO replace with requests
-    name: "Ba",
-    email: "santiagogregoryl@gmail.com",
-    id: 9503234759,
+    name: localStorage.getItem(CLAIM_USER).name,
+    email: localStorage.getItem(CLAIM_USER).email,
+    id: localStorage.getItem(CLAIM_USER).id,
     isEditing: false
   };
 

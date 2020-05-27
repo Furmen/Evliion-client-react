@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Route, withRouter, Switch } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Routes from './routes'
 import { getCurrentUser } from "../util/APIUtils";
-import { ACCESS_TOKEN } from "../constants";
+import { ACCESS_TOKEN, CLAIM_USER } from "../constants";
 import AppHeader from "../common/AppHeader";
 import LoadingIndicator from "../common/LoadingIndicator";
 import { Layout, notification } from "antd";
@@ -28,14 +28,29 @@ class App extends Component {
       top: 70,
       duration: 3,
     });
+
+    this.checkStateOfLogin();  
+  }
+
+  checkStateOfLogin() {
+    let that = this;
+
+    var interval = setInterval(function() {
+      if(localStorage.getItem(ACCESS_TOKEN)) {
+        that.handleLogin();
+        clearInterval(interval);
+      }
+    }, 100);
   }
 
   loadCurrentUser() {
     this.setState({
       isLoading: true,
     });
+
     getCurrentUser()
       .then(response => {
+        localStorage.setItem(CLAIM_USER, JSON.stringify(response));
         this.setState({
           currentUser: response,
           isAuthenticated: true,
@@ -59,6 +74,7 @@ class App extends Component {
     description = "You're successfully logged out."
   ) {
     localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(CLAIM_USER);
 
     this.setState({
       currentUser: null,
@@ -71,23 +87,32 @@ class App extends Component {
       message: "Evliion App",
       description: description,
     });
+
+    this.checkStateOfLogin();
   }
 
   handleLogin() {
-    notification.success({
-      message: "Evliion App",
-      description: "You're successfully logged in.",
-    });
     this.loadCurrentUser();
     this.props.history.push("/");
+  }
+
+  checkItemMenu(key, arrayClassList) {
+    let isActiveItem = false;
+    for (let index = 0; index < arrayClassList.length; index++) {
+      if(arrayClassList[index].indexOf(key.replace("/", "")) !== -1)
+        isActiveItem = true;
+    }
+
+    return isActiveItem;
   }
 
   checkItemMenuState() {
     var menuItems = document.getElementsByClassName("ant-menu-item");
     for (let index = 0; index < menuItems.length; index++) {
       const menuItem = menuItems[index];
-      
-      if(this.props.location.pathname.indexOf(menuItem.children[0].innerText.toLowerCase()) !== -1) {
+      let searcherKeyMenu = this.props.location.pathname === "/" ? "homeLink" : this.props.location.pathname;
+
+      if(this.checkItemMenu(searcherKeyMenu, menuItem.children[0].classList)) {
         menuItem.children[0].style.color = "#1DA57A";
         menuItem.style.borderBottom = "2px solid #1DA57A";
       } else {

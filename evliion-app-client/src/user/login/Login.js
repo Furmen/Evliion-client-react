@@ -3,8 +3,8 @@ import { login } from '../../util/APIUtils';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../constants';
-
 import { Form, Input, Button, Icon, notification } from 'antd';
+
 const FormItem = Form.Item;
 
 class Login extends Component {
@@ -25,17 +25,28 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        notification.config({
+            placement: "topRight",
+            top: 70,
+            duration: 3,
+          });
     }
 
     handleSubmit(event) {
+        let that = this;
         event.preventDefault();   
-        this.props.form.validateFields((err, values) => {
+        that.props.form.validateFields((err, values) => {
             if (!err) {
                 const loginRequest = Object.assign({}, values);
                 login(loginRequest)
                 .then(response => {
                     localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                    this.props.onLogin();
+
+                    notification.success({
+                        message: "Evliion App",
+                        description: "You're successfully logged in.",
+                    });
                 }).catch(error => {
                     if(error.status === 401) {
                         notification.error({

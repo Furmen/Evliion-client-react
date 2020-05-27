@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Modal, Form, Input, Typography, Button, Select, message, notification } from "antd";
 import "./store.css";
 import { addStore } from '../util/APIUtils'
-import { MAP_API_V3_KEY } from '../constants';
+import { MAP_API_V3_KEY, CLAIM_USER } from '../constants';
 import GoogleMapViewStore from "./mapStore";
 import { searchCoordenates } from "../util/APIUtils";
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
@@ -96,9 +96,10 @@ class AddEditStore extends Component {
   
   sendAPIRequest = () => {
     this.setState({buttonLoading: true});
-    
+    debugger;
+    let currentUser = JSON.parse(localStorage.getItem(CLAIM_USER));
     const storeData = {
-      user_id: 1234, // TODO use real user ID
+      user_id: currentUser.id, // TODO use real user ID
       name: this.state.name.value,
       city: this.state.city.value,
       address: this.state.address.value,
@@ -123,18 +124,18 @@ class AddEditStore extends Component {
 
   toAPIJsonFormat(storeData) {
     return {
-      name: storeData.name, 
       address:{
-        line: storeData.address,
-        line2: storeData.additional, 
-        zipCode: storeData.zipcode, 
         city: storeData.city,
-        state: storeData.state,
         country: storeData.country,
-        lattitude: storeData.latitude,
-        longitude: storeData.longitude
+        lattitude: parseFloat(storeData.latitude),
+        line1: storeData.address,
+        line2: storeData.additional, 
+        longitude: parseFloat(storeData.longitude),
+        state: storeData.state,
+        zipCode: storeData.zipcode
       },
       category: storeData.category,
+      name: storeData.name, 
       subCategory: storeData.subCategory
     };
   }
