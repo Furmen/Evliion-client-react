@@ -15,8 +15,8 @@
 
 .watt-about {
     background-color: purple;
-    height: 100vh;
-    width: 20vw;
+    height: calc(100vh - 6vh);
+    width: 14rem;
     padding: 0;
     margin: 0;
     margin-top: 6vh;
@@ -25,13 +25,13 @@
 }
 
 .watt {
-    padding: 2%;
+    padding: 1rem 3rem;
     padding-bottom: 0;
     font-size: 300%;
     line-height: 200%;
 }
 
 .description {
-    font-size: 150%;
+    font-size: 28px;
     padding: 2%;
 }

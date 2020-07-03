@@ -14,6 +14,30 @@ import NotFound from "../common/NotFound";
 import PrivateRoute from "../common/PrivateRoute";
 import Welcome from "./Welcome/Welcome";
 import { MAP_API_V3_KEY, ACCESS_TOKEN } from '../constants';
+import ListInventory from "../inventory/ListInventory";
+import Inventory from "../inventory/Inventory";
+import { getAllStores } from '../util/APIUtils'
+import { currentLocation } from '../util/Helpers'
+
+var storesArr = [];
+
+getAllStores().then(res => {
+    res.content.forEach(store => {
+        storesArr.push([
+        {
+            name: store.name,
+            lat: store.address.lattitude,
+            lng: store.address.longitude,
+            id: store.id,
+            address: store.address.line1,
+            zipcode: store.address.zipCode,
+            subCategory: store.subCategory,
+            category: store.category
+          }
+      ]);
+    });
+    return storesArr;
+});
 
 const routes = props => {
   return (
@@ -28,6 +52,8 @@ const routes = props => {
               <div style={{ height: "100vh", width: "100vw" }}></div>
             }
             mapElement={<div style={{ height: "100vh" }}></div>}
+            storesArr={storesArr}
+            currentPosition={currentLocation()}
           />
         )}
       />
@@ -39,7 +65,7 @@ const routes = props => {
         exact
         path="/"
         render={props =>
-          !localStorage.getItem(ACCESS_TOKEN) ? (
+          !sessionStorage.getItem(ACCESS_TOKEN) ? (
             <Login />
           ) : (
             <Welcome />
@@ -47,6 +73,9 @@ const routes = props => {
         }
       />
       <Route path="/login" component={Login}></Route>
+      <Route path="/inventory" component={ListInventory}></Route>
+      <Route path="/addinventory" component={Inventory}></Route>
+      <Route path="/editinventory" component={Inventory}></Route>
       <Route path="/listvehicle" component={ListVehicle}></Route>
       <Route path="/vehicle" component={Vehicle}></Route>
       <Route path="/store" component={Store}></Route>

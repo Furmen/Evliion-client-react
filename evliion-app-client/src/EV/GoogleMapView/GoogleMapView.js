@@ -1,17 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {GoogleMap,withScriptjs,withGoogleMap,Marker,InfoWindow} from 'react-google-maps'
 import "./GoogleMapView.css";
 
-const GoogleMapView = props => {
-  const [coordinates, setCoordinates] = useState([
-    { name: "ABC (Pvt) LTd", lat: 52.53, lng: 13.3845921 },
-    { name: "CDE (Pvt) LTd", lat: 54.53, lng: 14.3853495 },
-    { name: "DFG (Pvt) LTd", lat: 56.53, lng: 15.3861756 },
-    { name: "ABP (Pvt) LTd", lat: 48.0, lng: 16.3872163 },
-    { name: "PSK (Pvt) LTd", lat: 39.5316215, lng: 17.3885574 },
-    { name: "LSE (Pvt) LTd", lat: 42.5320399, lng: 18.3925807 },
-    { name: "GOG (Pvt) LTd", lat: 52.1, lng: 19.3935785 },
-  ]);
+function distance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}
+
+const GoogleMapView = props => { 
+  const [coordinates, setCoordinates] = useState(props.storesArr);
   const [selectedPlace,setSelectedPlace] = useState(null)
   
   const sayHello = props => {
@@ -21,9 +35,9 @@ const GoogleMapView = props => {
     return (
         <GoogleMap
             defaultZoom={10}
-            defaultCenter={{ lat: 48.0, lng: 16.3872163 }}
-        >
+            defaultCenter={{ lat: props.currentPosition.latitude, lng: props.currentPosition.longitude }}>
             {coordinates.map((coordinate, index) => {
+                coordinate = coordinate[0];
                 return <Marker key={index} position={{ lat: coordinate.lat, lng: coordinate.lng }}
                     onClick={() => {
                         setSelectedPlace(coordinate)
@@ -33,55 +47,21 @@ const GoogleMapView = props => {
             )}
             {selectedPlace && (<InfoWindow
                 position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }}
-                onCloseClick={() => {
-                    setSelectedPlace(null)
-                }}
-            >
+                onCloseClick={() => { setSelectedPlace(null) }}>
                 <div style={{ width: "13.7rem" }}>
                     <h3>{selectedPlace.name}</h3>
-                    <p className="text-description">S. No. 7 (P), Hosur Road,</p>
-                    <p className="text-description">{selectedPlace.name}, West Ph...</p>
+                    <p className="text-description">Address: <strong>{selectedPlace.address}</strong></p>
+                    <p className="text-description">ZipCode: <strong>{selectedPlace.zipcode}</strong></p>
                     <br />
                     <br />
                     <div className="same-line">
-                        <span className="text-info">2 points available</span>
-                        <button className="text-info-btn" onClick={sayHello}>Navigate (756 km)</button>
+                        <button className="text-info-btn" onClick={sayHello}>Navigate ({distance(props.currentPosition.latitude, props.currentPosition.longitude, selectedPlace.lat,selectedPlace.lng, 'K')} km)</button>
                     </div>
                 </div>
             </InfoWindow>)}
         </GoogleMap>
     );
-
-  // useEffect(() => {
-  //   let isCancelled = false;
-
-  //   let centerLat = 0;
-  //   let centerLng = 0;
-
-  //   if(!isCancelled){
-  //     coordinates.forEach(
-  //       coord => ((centerLat += coord.lat), (centerLng += coord.lng))
-  //     );
-  //     centerLat /= coordinates.length;
-  //     centerLng /= coordinates.length;
-  //     console.log({
-  //       lat: Number(centerLat.toFixed(2)),
-  //       lng: Number(centerLng.toFixed(2)),
-  //     });
-  //     setInitialCenter({
-  //       lat: Number(centerLat.toFixed(2)),
-  //       lng: Number(centerLng.toFixed(2)),
-  //     });
-  //   }
-  
-  //   return () => {
-  //     isCancelled = true;
-  //   };
-  // }, [coordinates]);
 };
 
 const WrappedMap = withScriptjs(withGoogleMap(GoogleMapView))  
 export default WrappedMap
-// export default GoogleApiWrapper({
-//   apiKey: "AIzaSyAYscCjPju-deY_MM2h5cy6GMw2pgpOARc",
-// })(GoogleMapView);

@@ -8,8 +8,8 @@ const APP_VERSION = "0.0.1";
 
 export function handleLogin(key) {
     arweave.wallets.jwkToAddress(key).then(address => {
-        localStorage.setItem('key', JSON.stringify(key));
-        localStorage.setItem('address', address);
+        sessionStorage.setItem('key', JSON.stringify(key));
+        sessionStorage.setItem('address', address);
     })
 }
 

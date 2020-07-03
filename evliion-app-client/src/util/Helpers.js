@@ -1,3 +1,5 @@
+import { notification } from "antd";
+
 export function formatDate(dateString) {
   const date = new Date(dateString);
 
@@ -54,4 +56,25 @@ export function formatDateTime(dateTimeString) {
     ":" +
     date.getMinutes()
   );
+}
+
+export function currentLocation() {
+  var currentPosition = {
+    latitude: 0,
+    longitude: 0
+  };
+
+  if (!"geolocation" in navigator) {
+    notification.info({
+      message: 'Evliion App',
+      description: "You must activate the geolocation in your browser!",
+    }); 
+  } else {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      currentPosition.latitude = position.coords.latitude;
+      currentPosition.longitude = position.coords.longitude;
+    });
+  }  
+
+  return currentPosition;
 }

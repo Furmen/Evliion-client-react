@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-  max-width: 1000px;
+  /* max-width: 1000px; */
   margin-left: auto;
   margin-right: auto;
   padding-left: 15px;
@@ -16,4 +16,26 @@ body {
   h1 {
     font-size: 1.7em;
   }
+}
+
+.barsMenu{
+  float: right;
+  margin: 15px 0 10px 0;
+}
+
+.ant-drawer-content-wrapper {
+  width: auto !important;
+}
+
+.ant-menu-vertical {
+    width: 6rem;
+    position: absolute;
+    left: 0rem;
+    text-align: center;
+    top: 3rem;
+    border: none;
+}
+
+.ant-menu-submenu {
+  top: 0.1rem !important;
 }

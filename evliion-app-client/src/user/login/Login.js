@@ -41,7 +41,7 @@ class LoginForm extends Component {
                 const loginRequest = Object.assign({}, values);
                 login(loginRequest)
                 .then(response => {
-                    localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+                    sessionStorage.setItem(ACCESS_TOKEN, response.accessToken);
 
                     notification.success({
                         message: "Evliion App",

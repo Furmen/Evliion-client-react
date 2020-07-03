@@ -9,9 +9,9 @@ export default class Profile extends Component {
   }
 
   state = {
-    name: localStorage.getItem(CLAIM_USER).name,
-    email: localStorage.getItem(CLAIM_USER).email,
-    id: localStorage.getItem(CLAIM_USER).id,
+    name: sessionStorage.getItem(CLAIM_USER).name,
+    email: sessionStorage.getItem(CLAIM_USER).email,
+    id: sessionStorage.getItem(CLAIM_USER).id,
     isEditing: false
   };
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Typography, Button } from "antd";
 import "./listStore.css";
+import { getAllStores, deleteStore } from '../util/APIUtils'
 
 const { Title } = Typography;
 var that;
@@ -20,18 +21,35 @@ class ListStore extends Component {
       isVisible: false,
     };
 
-    //Check if state has values
-    if(that.history.location.state) {
-      let indexToCheck = that.history.location.state.storeData.store_index;
-      //Delete store if is an edit mode
-      if(indexToCheck !== undefined &&
-        indexToCheck !== -1)
-        stores.splice(indexToCheck, 1);
+    stores = [];
 
-      //Check availability of the store
-      if(!this.checkStoreAvailability(that.history.location.state.storeData))
-        stores.push(that.history.location.state.storeData);
-    }
+    getAllStores().then(res => {
+        res.content.forEach(store => {
+          stores.push({
+            id: store.id,
+            name: store.name,
+            address: store.address.line1,
+            zipcode: store.address.zipCode,
+            latitude: store.address.lattitude,
+            longitude: store.address.longitude,
+            subCategory: store.subCategory,
+            category: store.category
+          });
+        });
+
+        this.requestSort('id');
+        this.setState({ state: this.state });
+    });
+
+    // if(that.history.location.state) {
+    //   let indexToCheck = that.history.location.state.storeData.store_index;
+    
+    //   if(indexToCheck !== undefined && indexToCheck !== -1)
+    //     stores.splice(indexToCheck, 1);
+    
+    //   if(!this.checkStoreAvailability(that.history.location.state.storeData))
+    //     stores.push(that.history.location.state.storeData);
+    // }
   }
 
   sendToNewStore() {
@@ -99,7 +117,7 @@ class ListStore extends Component {
   }
 
   deleteStore(index, store) {
-    indexForDeleteStore = index;
+    indexForDeleteStore = store.id;
     this.setState({ isVisible: true });
   }
 
@@ -108,9 +126,10 @@ class ListStore extends Component {
   }
 
   deleteStoreAndCloseModal() {
-    stores.splice(indexForDeleteStore, 1);
-    indexForDeleteStore = -1;
-    this.setState({ isVisible: false });
+    deleteStore(indexForDeleteStore).then(res => {
+        indexForDeleteStore = -1;
+        this.setState({ isVisible: false });
+    });
   }
 
   render() {
@@ -122,7 +141,12 @@ class ListStore extends Component {
       <thead>
         <tr>
           <th>
-            Store number
+          <button
+                type="button"
+                onClick={() => this.requestSort('id')}
+                className={this.getClassNamesFor('id')}>
+                Id
+              </button>
           </th>
           <th>
             <button
@@ -165,7 +189,7 @@ class ListStore extends Component {
         {
           stores.map((store, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
+              <td>{store.id}</td>
               <td>{store.category}</td>
               <td>{store.name}</td>
               <td>{store.address}</td>
