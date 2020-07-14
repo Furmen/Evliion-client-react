@@ -18,6 +18,7 @@ import ListInventory from "../inventory/ListInventory";
 import Inventory from "../inventory/Inventory";
 import { getAllStores } from '../util/APIUtils'
 import { currentLocation } from '../util/Helpers'
+import VerifyIdentity from "../user/verifyIdentity/verifyIdentity";
 
 var storesArr = [];
 
@@ -83,6 +84,7 @@ const routes = props => {
       <Route path="/editstore" component={AddEditStore}></Route>
       <Route path="/signup" component={Signup}></Route>
       <Route path="/verify-mobile" component={VerifyMobile}></Route>
+      <Route path="/verify-identity" component={VerifyIdentity}></Route>
       <Route
         path="/users/:username"
         render={props => (

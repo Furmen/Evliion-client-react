@@ -47,6 +47,7 @@ class AppHeader extends Component {
             <Menu.Item key="/map" title="Map"><Link to="/map" className="map"><Icon type="global" className="nav-icon" /></Link></Menu.Item>,
             <Menu.Item key="/store" title="Store"><Link to="/store" className="store addstore editstore"><Icon type="shop" className="nav-icon" /></Link></Menu.Item>,
             <Menu.Item key="/inventory" title="Inventory"><Link to="/inventory" className="inventory addinventory editinventory"><Icon type="solution" className="nav-icon" /></Link></Menu.Item>,
+            <Menu.Item key="/verify-identity" title="Verify Identity"><Link to="/verify-identity" className="Verify Identity"><Icon type="user" className="nav-icon" /></Link></Menu.Item>,
             <SubMenu key="/profile/user" title={<IconProfile />} onClick={this.handleMenuClick}>
                <Menu.ItemGroup title={this.props.currentUser ? this.props.currentUser.name : "" }>
                  <Menu.Item key="profile" className="dropdown-item">

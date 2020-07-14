@@ -71,7 +71,7 @@
     margin-top: -4px;
   }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .app-title a {
     font-size: 20px;
   }
@@ -84,4 +84,9 @@
     padding: 0 15px;
     margin: 0 -15px;
   }
+
+  .ant-menu-sub {
+    top: 15rem;
+    left: 0.77rem;
+   }
 }
