@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./verifyIdentity.css";
-import { Form, Input, Typography, Button, Select } from "antd";
+import { Form, Typography, Button, Select } from "antd";
 import { CountryDropdown } from 'react-country-region-selector'
 import { CLAIM_USER } from '../../constants';
 
@@ -16,10 +16,6 @@ class VerifyIdentity extends Component {
     type: ""
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   isFormInvalid() {
     return !(this.state.type !== "" && this.state.country !== "");
   }
@@ -33,12 +29,12 @@ class VerifyIdentity extends Component {
   }
 
   sendAPIRequest = () => {
-    let currentUser = JSON.parse(sessionStorage.getItem(CLAIM_USER));
-    const verifyData = {
-      user_id: currentUser.id,
-      country: this.state.country,
-      type: this.state.passport.value
-    }
+    //let currentUser = JSON.parse(sessionStorage.getItem(CLAIM_USER));
+    // const verifyData = {
+    //   user_id: currentUser.id,
+    //   country: this.state.country,
+    //   type: this.state.passport.value
+    // }
   };
 
   render() {

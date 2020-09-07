@@ -19,6 +19,7 @@ import Inventory from "../inventory/Inventory";
 import { getAllStores } from '../util/APIUtils'
 import { currentLocation } from '../util/Helpers'
 import VerifyIdentity from "../user/verifyIdentity/verifyIdentity";
+import CompleteIdentification from "../user/completeIdentification/completeIdentification";
 
 var storesArr = [];
 
@@ -74,6 +75,7 @@ const routes = props => {
         }
       />
       <Route path="/login" component={Login}></Route>
+      <Route path="/complete-identification" component={CompleteIdentification}></Route>
       <Route path="/inventory" component={ListInventory}></Route>
       <Route path="/addinventory" component={Inventory}></Route>
       <Route path="/editinventory" component={Inventory}></Route>

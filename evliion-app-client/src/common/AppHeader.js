@@ -53,6 +53,9 @@ class AppHeader extends Component {
                  <Menu.Item key="profile" className="dropdown-item">
                    <Link to={`/users/${this.props.currentUser ? this.props.currentUser.username : ""}`}>Profile</Link>
                  </Menu.Item>
+                 <Menu.Item key="complete-identification" className="dropdown-item">
+                   <Link to={`/complete-identification`}>Identification</Link>
+                 </Menu.Item>
                  <Menu.Item key="logout" className="dropdown-item">
                    Logout
                 </Menu.Item>
@@ -84,7 +87,7 @@ class AppHeader extends Component {
           } else {
             return (
                 <Header className="app-header">
-                <nav className="menuBar hide">
+                <nav className="menuBar">
                   <div className="menuCon">
                     <Button className="barsMenu" type="primary" onClick={this.showDrawer}>
                       <Icon type="home" className="nav-icon" />

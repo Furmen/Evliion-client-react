@@ -4,10 +4,6 @@ import {CLAIM_USER} from '../constants';
 import "./Profile.css";
 
 export default class Profile extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     name: sessionStorage.getItem(CLAIM_USER).name,
     email: sessionStorage.getItem(CLAIM_USER).email,
@@ -24,7 +20,7 @@ export default class Profile extends Component {
       <div>
         {!this.state.isEditing ? (
           <div>
-            <div class="user-info">
+            <div className="user-info">
               <h1 className="user-name">{this.state.name}</h1>
               <div>{this.state.email}</div>
               <div>{this.state.id}</div>
@@ -39,7 +35,7 @@ export default class Profile extends Component {
             </div>
           </div>
         ) : (
-          <div class="edit-information">
+          <div className="edit-information">
             <Input
               defaultValue={this.state.name}
               style={{ width: this.state.name.length * 10 + 50 }}

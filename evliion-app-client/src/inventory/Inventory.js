@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Typography, Select, Button, Input, message, Form } from "antd";
 import "./Inventory.css";
 import {addInventory} from '../util/APIUtils'
-import { MAP_API_V3_KEY, CLAIM_USER } from '../constants';
+import { CLAIM_USER } from '../constants';
 
 const FormItem = Form.Item;
 const { Title } = Typography;

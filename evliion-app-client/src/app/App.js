@@ -29,14 +29,17 @@ class App extends Component {
       duration: 3,
     });
 
-    this.checkStateOfLogin();  
+    this.checkStateOfLogin();
   }
 
   checkStateOfLogin() {
     let that = this;
-
     var interval = setInterval(function() {
-      if(sessionStorage.getItem(ACCESS_TOKEN)) {
+      if(!sessionStorage.getItem(ACCESS_TOKEN)) {
+        if(that.props.location.pathname !== "/") {
+          window.location.href = "/";
+        }
+      } else {
         that.handleLogin();
         clearInterval(interval);
       }
@@ -65,6 +68,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.checkStateOfLogin();
     this.loadCurrentUser();
   }
 
