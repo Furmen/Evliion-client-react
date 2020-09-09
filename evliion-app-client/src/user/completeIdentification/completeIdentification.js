@@ -41,7 +41,7 @@ class CompleteIdentification extends Component {
 
   changeStep() {
     this.setState({ canShowPrevStep: (sliderStep <= 1) });
-    this.setState({ canShowNextStep: (sliderStep >= 3) });
+    this.setState({ canShowNextStep: (sliderStep >= 4) });
   }
 
   previous() {
@@ -105,20 +105,106 @@ class CompleteIdentification extends Component {
     function getUploadStepTwo() {
       if(!isMobile) {
         return(
+            <div>
                 <Dragger {...propsFileUpload}>
                   <p className="ant-upload-drag-icon">
                     <InboxOutlined />
                   </p>
-                  <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                  <p className="ant-upload-text">Click or drag your photo to this area to upload</p>
                   <p className="ant-upload-hint">
                     Support for a single or bulk upload. Strictly prohibit from uploading company data or other
                     band files
                   </p>
                 </Dragger>
+                <div className="text-step">
+                <h3>Upload Photo</h3>
+                <p>
+                  Make sure that your image has good quality.
+                </p>
+              </div>
+            </div>
         )
       } else {
         return(
-          <div><h3>Place here mobile actions</h3></div>
+          <div>
+            <div><h3>Place here mobile actions</h3></div>
+            <div className="text-step">
+              <h3>Upload Photo</h3>
+                <p>
+                  Your face has to be well it, make sure you don't have any background lights.
+                </p>
+              </div>
+          </div>
+        );
+      }
+    }
+
+    function getFirstStep() {
+      return (
+        <div>
+            <div className="card-identification"></div>
+            <div className="text-step">
+              <h3>Get ID document ready</h3>
+              <p>
+                Before you start, make sure your passport, driver's license is with you will need to scan it during the process.
+              </p>
+            </div>
+          </div>
+      );
+    }
+
+    function getFourthStep() {
+      return (
+        <div>
+          <div className="complete-process"></div>
+            <div className="text-step">
+              <h2>Thank's for using Evilion App</h2>
+              <p>
+                <strong>
+                  Document uploaded successfully
+                </strong>
+              </p>
+              <p>
+                Document will be verified in 1 - 14 days
+              </p>
+            </div>
+          </div>
+      );
+    }
+
+    function getUploadStepThree() {
+      if(!isMobile) {
+        return(
+              <div>
+                <Dragger {...propsFileUpload}>
+                  <p className="ant-upload-drag-icon">
+                    <InboxOutlined />
+                  </p>
+                  <p className="ant-upload-text">Click or drag passport photo to this area to upload</p>
+                  <p className="ant-upload-hint">
+                    Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+                    band files
+                  </p>
+                </Dragger>
+                <div className="text-step">
+                <h3>Upload Passport Image</h3>
+                <p>
+                  Upload your passport image to continue.
+                </p>
+              </div>
+            </div>
+        )
+      } else {
+        return(
+          <div>
+            <div><h3>Place here mobile actions</h3></div>
+            <div className="text-step">
+              <h3>Upload Passport Image</h3>
+                <p>
+                  Your face has to be well it, make sure you don't have any background lights.
+                </p>
+            </div>
+          </div>
         );
       }
     }
@@ -130,28 +216,10 @@ class CompleteIdentification extends Component {
           <Form onSubmit={this.handleSubmit} className="signup-form">
               <FormItem>
                 <Carousel effect="fade" ref={node => (this.carousel = node)} {...props}>
-                  <div>
-                    <div className="card-identification">
-                    </div>
-                    <div className="text-step">
-                      <h3>Get ID document ready</h3>
-                      <p>
-                        Before you start, make sure your passport, driver's license is with you will need to scan it during the process.
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    {getUploadStepTwo()}
-                    <div className="text-step">
-                      <h3>Upload Photo</h3>
-                      <p>
-                        Your face has to be well it, make sure you don't have any background lights.
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <h3>3</h3>
-                  </div>
+                  {getFirstStep()}
+                  {getUploadStepTwo()}
+                  {getUploadStepThree()}
+                  {getFourthStep()}
                 </Carousel>
               </FormItem>
               <FormItem style={{textAlign: "center"}}>

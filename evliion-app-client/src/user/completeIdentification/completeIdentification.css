@@ -135,6 +135,14 @@
     height: 250px;
 }
 
+.complete-process {
+    background-image: url("./complete.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 250px;
+}
+
 .ant-upload.ant-upload-drag {
     height: 250px;
 }
