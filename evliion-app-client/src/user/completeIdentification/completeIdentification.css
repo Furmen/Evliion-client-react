@@ -159,3 +159,7 @@
 [type="button"] {
     width: 33%;
 }
+
+.react-html5-camera-photo {
+    margin-top: 6rem;
+}

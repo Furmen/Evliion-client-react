@@ -4,6 +4,8 @@ import { Form, Typography, Button, Carousel, Icon, Upload, notification } from "
 import { InboxOutlined } from '@ant-design/icons';
 import { CLAIM_USER } from '../../constants';
 import {isMobile} from 'react-device-detect';
+import Camera, { FACING_MODES, IMAGE_TYPES } from 'react-html5-camera-photo';
+import 'react-html5-camera-photo/build/css/index.css';
 
 const FormItem = Form.Item;
 const { Title } = Typography;
@@ -102,6 +104,47 @@ class CompleteIdentification extends Component {
       },
     };
 
+    function getFirstStep() {
+      return (
+        <div>
+            <div className="card-identification"></div>
+            <div className="text-step">
+              <h3>Get ID document ready</h3>
+              <p>
+                Before you start, make sure your passport, driver's license is with you will need to scan it during the process.
+              </p>
+            </div>
+          </div>
+      );
+    }
+
+    function handleTakePhoto (dataUri) {
+      debugger;
+      // Do stuff with the photo...
+      console.log('takePhoto');
+    }
+   
+    function handleTakePhotoAnimationDone (dataUri) {
+      debugger;
+      // Do stuff with the photo...
+      console.log('takePhoto');
+    }
+   
+    function handleCameraError (error) {
+      notification.success({
+        message: "Camera error",
+        description: error,
+      });
+    }
+   
+    function handleCameraStart (stream) {
+      console.log('handleCameraStart');
+    }
+   
+    function handleCameraStop () {
+      console.log('handleCameraStop');
+    }
+
     function getUploadStepTwo() {
       if(!isMobile) {
         return(
@@ -127,7 +170,25 @@ class CompleteIdentification extends Component {
       } else {
         return(
           <div>
-            <div><h3>Place here mobile actions</h3></div>
+            <div>
+            <Camera
+                onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
+                onTakePhotoAnimationDone = { (dataUri) => { handleTakePhotoAnimationDone(dataUri); } }
+                onCameraError = { (error) => { handleCameraError(error); } }
+                idealFacingMode = {FACING_MODES.ENVIRONMENT}
+                idealResolution = {{width: 640, height: 480}}
+                imageType = {IMAGE_TYPES.JPG}
+                imageCompression = {0.97}
+                isMaxResolution = {true}
+                isImageMirror = {false}
+                isSilentMode = {false}
+                isDisplayStartCameraError = {true}
+                isFullscreen = {false}
+                sizeFactor = {1}
+                onCameraStart = { (stream) => { handleCameraStart(stream); } }
+                onCameraStop = { () => { handleCameraStop(); } }
+            />
+            </div>
             <div className="text-step">
               <h3>Upload Photo</h3>
                 <p>
@@ -137,39 +198,6 @@ class CompleteIdentification extends Component {
           </div>
         );
       }
-    }
-
-    function getFirstStep() {
-      return (
-        <div>
-            <div className="card-identification"></div>
-            <div className="text-step">
-              <h3>Get ID document ready</h3>
-              <p>
-                Before you start, make sure your passport, driver's license is with you will need to scan it during the process.
-              </p>
-            </div>
-          </div>
-      );
-    }
-
-    function getFourthStep() {
-      return (
-        <div>
-          <div className="complete-process"></div>
-            <div className="text-step">
-              <h2>Thank's for using Evilion App</h2>
-              <p>
-                <strong>
-                  Document uploaded successfully
-                </strong>
-              </p>
-              <p>
-                Document will be verified in 1 - 14 days
-              </p>
-            </div>
-          </div>
-      );
     }
 
     function getUploadStepThree() {
@@ -197,7 +225,25 @@ class CompleteIdentification extends Component {
       } else {
         return(
           <div>
-            <div><h3>Place here mobile actions</h3></div>
+            <div>
+            <Camera
+                onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
+                onTakePhotoAnimationDone = { (dataUri) => { handleTakePhotoAnimationDone(dataUri); } }
+                onCameraError = { (error) => { handleCameraError(error); } }
+                idealFacingMode = {FACING_MODES.ENVIRONMENT}
+                idealResolution = {{width: 640, height: 480}}
+                imageType = {IMAGE_TYPES.JPG}
+                imageCompression = {0.97}
+                isMaxResolution = {true}
+                isImageMirror = {false}
+                isSilentMode = {false}
+                isDisplayStartCameraError = {true}
+                isFullscreen = {false}
+                sizeFactor = {1}
+                onCameraStart = { (stream) => { handleCameraStart(stream); } }
+                onCameraStop = { () => { handleCameraStop(); } }
+            />
+            </div>
             <div className="text-step">
               <h3>Upload Passport Image</h3>
                 <p>
@@ -207,6 +253,25 @@ class CompleteIdentification extends Component {
           </div>
         );
       }
+    }
+
+    function getFourthStep() {
+      return (
+        <div>
+          <div className="complete-process"></div>
+            <div className="text-step">
+              <h2>Thank's for using Evilion App</h2>
+              <p>
+                <strong>
+                  Document uploaded successfully
+                </strong>
+              </p>
+              <p>
+                Document will be verified in 1 - 14 days
+              </p>
+            </div>
+          </div>
+      );
     }
 
     return (
